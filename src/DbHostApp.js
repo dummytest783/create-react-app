@@ -9,15 +9,15 @@ class DbHostApp extends React.Component {
     constructor(props) {
         super(props);
         this.valuationList = [
-          {key: 'PERatio', better: 'lower'},
-          {key: 'PEGRatio', better: 'lower', desc: 'less than 1 is undervalued company'},
-          {key: 'EPS', better: 'higher'},
-          {key: 'DividendYield', better: 'higher'}
+          {key: 'PERatio', better: 'lower', desc: 'Price/Earning'},
+          {key: 'PEGRatio', better: 'lower', desc: 'P/E Growth (less than 1 is undervalued)'},
+          {key: 'EPS', better: 'higher', desc: 'Earning per share'},
+          {key: 'DividendYield', better: 'higher', desc: 'Dividend you earn on every 1$'}
         ];
         this.profitList = [
-            {key: 'ProfitMargin', better: 'higher'},
-            {key: 'ReturnOnAssetsTTM', better: 'higher'},
-            {key: 'ReturnOnEquityTTM', better: 'higher'}
+            {key: 'ProfitMargin', better: 'higher', desc: 'Profit Margin'},
+            {key: 'ReturnOnAssetsTTM', better: 'higher', desc: 'Return on Asset Last 12 months'},
+            {key: 'ReturnOnEquityTTM', better: 'higher', desc: 'Return on Equity Last 12 months'}
         ];
 
         this.state = {
@@ -91,7 +91,7 @@ class DbHostApp extends React.Component {
                     {
                         this.valuationList && this.valuationList.map((item, index) => {
                           return (<Table.Row key={index}>
-                              <Table.Cell> {item.key} </Table.Cell>
+                              <Table.Cell> {item.key}  <span className='desc'> {item.desc}</span></Table.Cell>
                               {
                                 this.state.result && this.state.result.map((tickerDataObj, index) => {
                                   return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' } > {tickerDataObj[item.key]} </Table.Cell>)
@@ -107,7 +107,7 @@ class DbHostApp extends React.Component {
                      {
                         this.profitList && this.profitList.map((item, index) => {
                           return (<Table.Row key={index}>
-                              <Table.Cell> {item.key} </Table.Cell>
+                              <Table.Cell> {item.key} <span className='desc'> {item.desc}</span> </Table.Cell>
                               {
                                 this.state.result && this.state.result.map((tickerDataObj, index) => {
                                   return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' }  > {tickerDataObj[item.key]} </Table.Cell>)
