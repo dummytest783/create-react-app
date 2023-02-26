@@ -1,3 +1,7 @@
+body {
+    background-color: #e5e5e5;
+    font-size: 18px;
+}
 .dbdata {
     margin: 3rem;
 }
@@ -40,4 +44,11 @@
     text-align: center;
     height: 35px;
     line-height: 35px;
+}
+.searchbtn {
+    margin: 10px !important;
+}
+
+.table {
+    margin: 10px 0px !important;
 }
