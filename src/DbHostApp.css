@@ -1,0 +1,31 @@
+.dbdata {
+    margin: 3rem;
+}
+
+.header {
+    text-align: center;
+}
+.upcolor {
+    background-color: #DAF7A6;
+}
+.downcolor {
+    background-color: #ff2a26;
+}
+
+.updatetime {
+    font-size: 14px;
+    float: right;
+    margin-right: 3rem;
+}
+
+.dbtable {
+    margin: 3rem;
+}
+
+.footer {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 1rem;
+    background-color: #eee;
+}
