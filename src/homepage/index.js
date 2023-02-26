@@ -1,11 +1,12 @@
 import React from 'react'
-import { Header, Table, Input, Button } from 'semantic-ui-react'
+import { Header, Table, Input, Button} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
-import './DbHostApp.css'
+import './homepage.css'
 import axios from 'axios';
+import appkey from '../config/appkey.json'
 
 
-class DbHostApp extends React.Component {
+class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.valuationList = [
@@ -39,7 +40,7 @@ class DbHostApp extends React.Component {
     }
 
     getTickerData (inputArray) {
-      const apikey = 'OKK7K4SBZYR5UV7N';
+      const apikey = appkey.alphaVintageKey;
       const requestPromises = [];
       for (const ticker of inputArray) {
         const apiUrl = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${apikey}`;
@@ -127,4 +128,4 @@ class DbHostApp extends React.Component {
       )
     }
 }
-export default DbHostApp
+export default HomePage

@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import DbHostApp from "./DbHostApp";
+import HomePage from "./homepage";
 
 function App() {
   return (
     <div className="App">
-      <DbHostApp />
+      <HomePage />
     </div>
   );
 }
