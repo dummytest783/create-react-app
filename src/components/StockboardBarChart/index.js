@@ -4,7 +4,7 @@ import './index.css'
 
 function StockboardBarChart({data, tickerName}) {
     console.log('data  is ', data, tickerName)
-    const charSize = window.innerWidth < 450 ? '300px' : '800px';
+    const charSize = window.innerWidth < 450 ? '350px' : '800px';
     return (
         <div className='chartLayout'>
             <div className='barChartContainer' id="barChartContainer" style={{width: charSize}}> 
