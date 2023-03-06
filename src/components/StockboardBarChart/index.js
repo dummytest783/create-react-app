@@ -22,7 +22,7 @@ function StockboardBarChart({data, tickerName}) {
                         <YAxis tickFormatter={numberFormater}  />
                         <Tooltip />
                         <Legend verticalAlign="bottom"/>
-                        <Bar dataKey="Net_Income" fill="#8884d8"  />
+                        <Bar dataKey="value" fill="#8884d8"  />
                     </BarChart>
                 </ResponsiveContainer> 
             </div>

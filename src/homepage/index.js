@@ -59,7 +59,7 @@ class HomePage extends React.Component {
 
     getIncomeStmtData (inputArray) {
       console.log('income data ', inputArray)
-      const apikey = appkey.alphaVintageKey;
+      const apikey = appkey.graphAlphaVintageKey;
       const requestPromises = [];
       for (const ticker of inputArray) {
         const apiUrl = `https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${ticker}&apikey=${apikey}`;
@@ -93,7 +93,7 @@ class HomePage extends React.Component {
       return  (
         <div> 
           <div className="dbdata">
-            <Header as='h1'> Which Stock to Buy? </Header>
+            <Header as='h1' className='pageHeader'> Which Stock to Buy? </Header>
             <Input placeholder='Enter coma seperated ticker' className='tickerInput' value={this.state.inputTicker} onChange={e => this.handleTickerChange(e)} />
             <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
             <div>
@@ -110,7 +110,8 @@ class HomePage extends React.Component {
                 </Table.Header>
             
                 <Table.Body>
-                  <Table.Row fullWidth className='sectionHeader'> <Table.Cell>Valuation</Table.Cell>  </Table.Row>
+                  <Table.Row fullWidth className='sectionHeader'> <Table.Cell colSpan={(this.state.tickerData.length + 1) + ""}>Valuation</Table.Cell>  
+                  </Table.Row>
                     {
                         this.valuationList && this.valuationList.map((item, index) => {
                           return (<Table.Row key={index}>
@@ -125,7 +126,7 @@ class HomePage extends React.Component {
                         })
                         
                     }
-                     <Table.Row fullWidth className='sectionHeader'><Table.Cell>Profitability</Table.Cell> </Table.Row>
+                     <Table.Row fullWidth className='sectionHeader'><Table.Cell  colSpan={(this.state.tickerData.length + 1) + ""}>Profitability</Table.Cell> </Table.Row>
 
                      {
                         this.profitList && this.profitList.map((item, index) => {
@@ -150,7 +151,7 @@ class HomePage extends React.Component {
               {
                 this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
                   console.log('data....', data.value.annualReports)
-                  const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'Net_Income': annualReportObj.netIncome} }));
+                  const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.netIncome} }));
                   return (<StockboardBarChart data={charObj} tickerName={data.tickerName} />)
                 })
               }
@@ -161,7 +162,7 @@ class HomePage extends React.Component {
               {
                 this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
                   console.log('data....', data.value.annualReports)
-                  const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'Net_Income': annualReportObj.totalRevenue} }));
+                  const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.totalRevenue} }));
                   return (<StockboardBarChart data={charObj} tickerName={data.tickerName} />)
                 })
               }
