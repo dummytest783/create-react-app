@@ -1,0 +1,19 @@
+.barChartContainer {
+    margin: 10px auto;
+    width: 800px;
+    height: 500px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    border-bottom:  1px solid #e5e5e5;
+}
+
+.chartLayout {
+    width: 100%;
+    border: 1px solid black;
+}
+
+.companyLabel {
+    line-height: 35px;
+    font-weight: bold;
+}

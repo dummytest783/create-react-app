@@ -1,9 +1,12 @@
 import React from 'react'
-import { Header, Table, Input, Button} from 'semantic-ui-react'
+import { Header, Table, Input, Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
+import Divider from '../components/Divider'
+import StockboardBarChart from '../components/StockboardBarChart'
 import axios from 'axios';
 import appkey from '../config/appkey.json'
+import { sortByDate } from '../utils'
 
 
 class HomePage extends React.Component {
@@ -23,12 +26,13 @@ class HomePage extends React.Component {
 
         this.state = {
           inputTicker :'',
-          result: []
+          tickerData: [],
+          incomeStmtdata: []
         };
     }
 
     isValueGood(item, value) {
-       const allNumbers = this.state.result.map(stock => parseFloat(stock[item.key]))
+       const allNumbers = this.state.tickerData.map(stock => parseFloat(stock[item.key]))
        if(item.better === 'lower') {
           return Math.min(...allNumbers) === parseFloat(value)
        } else if (item.better === 'higher') {
@@ -41,17 +45,34 @@ class HomePage extends React.Component {
 
     getTickerData (inputArray) {
       const apikey = appkey.alphaVintageKey;
-      const requestPromises = [];
+      const requestTickerPromises = [];
       for (const ticker of inputArray) {
         const apiUrl = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${apikey}`;
+        requestTickerPromises.push(axios.get(apiUrl))
+      }
+
+      Promise.all(requestTickerPromises).then((values) => {
+        console.log('ticker data', values);
+        this.setState({tickerData: values.map(value => value.data)})
+      });
+    }
+
+    getIncomeStmtData (inputArray) {
+      console.log('income data ', inputArray)
+      const apikey = appkey.alphaVintageKey;
+      const requestPromises = [];
+      for (const ticker of inputArray) {
+        const apiUrl = `https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${ticker}&apikey=${apikey}`;
         requestPromises.push(axios.get(apiUrl))
       }
 
       Promise.all(requestPromises).then((values) => {
-        console.log(values);
-        this.setState({result: values.map(value => value.data)})
+        console.log('income stmt', values);
+        const incomeStmtDataArr = values.map(value => {
+          return {tickerName: value.data.symbol, value: value.data}
+        })
+        this.setState({incomeStmtdata: incomeStmtDataArr})
       });
-
     }
 
     handleTickerChange (e) {
@@ -64,6 +85,7 @@ class HomePage extends React.Component {
       console.log(inputArray)
       this.setState({'inputTicker': ''})
       this.getTickerData(inputArray)
+      this.getIncomeStmtData(inputArray)
 
     }
 
@@ -80,7 +102,7 @@ class HomePage extends React.Component {
                   <Table.Row>
                     <Table.HeaderCell>Technical Indicator</Table.HeaderCell>
                     {
-                      this.state.result && this.state.result.map((item, index) => {
+                      this.state.tickerData && this.state.tickerData.map((item, index) => {
                         return (<Table.HeaderCell key={index}> {item.Symbol}</Table.HeaderCell>)
                       })
                     }
@@ -88,13 +110,13 @@ class HomePage extends React.Component {
                 </Table.Header>
             
                 <Table.Body>
-                  <Table.Row fullWidth className='sectionHeader'> Valuation </Table.Row>
+                  <Table.Row fullWidth className='sectionHeader'> <Table.Cell>Valuation</Table.Cell>  </Table.Row>
                     {
                         this.valuationList && this.valuationList.map((item, index) => {
                           return (<Table.Row key={index}>
                               <Table.Cell> {item.key}  <span className='desc'> {item.desc}</span></Table.Cell>
                               {
-                                this.state.result && this.state.result.map((tickerDataObj, index) => {
+                                this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
                                   return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' } > {tickerDataObj[item.key]} </Table.Cell>)
                                 })
                               }
@@ -103,14 +125,14 @@ class HomePage extends React.Component {
                         })
                         
                     }
-                     <Table.Row fullWidth className='sectionHeader'> Profitability </Table.Row>
+                     <Table.Row fullWidth className='sectionHeader'><Table.Cell>Profitability</Table.Cell> </Table.Row>
 
                      {
                         this.profitList && this.profitList.map((item, index) => {
                           return (<Table.Row key={index}>
                               <Table.Cell> {item.key} <span className='desc'> {item.desc}</span> </Table.Cell>
                               {
-                                this.state.result && this.state.result.map((tickerDataObj, index) => {
+                                this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
                                   return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' }  > {tickerDataObj[item.key]} </Table.Cell>)
                                 })
                               }
@@ -122,6 +144,28 @@ class HomePage extends React.Component {
 
                 </Table.Body>
               </Table>
+            </div>
+            <div className={this.state.incomeStmtdata && this.state.incomeStmtdata.length ? 'show' : 'hide'}>
+              <Divider label="Net Income Growth of Last 5 Years"/>
+              {
+                this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
+                  console.log('data....', data.value.annualReports)
+                  const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'Net_Income': annualReportObj.netIncome} }));
+                  return (<StockboardBarChart data={charObj} tickerName={data.tickerName} />)
+                })
+              }
+                    
+            </div>
+            <div className={this.state.incomeStmtdata && this.state.incomeStmtdata.length ? 'show' : 'hide'}>
+              <Divider label="Revenue Growth of Last 5 Years"/>
+              {
+                this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
+                  console.log('data....', data.value.annualReports)
+                  const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'Net_Income': annualReportObj.totalRevenue} }));
+                  return (<StockboardBarChart data={charObj} tickerName={data.tickerName} />)
+                })
+              }
+                    
             </div>
             </div>
           </div>

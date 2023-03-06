@@ -42,9 +42,9 @@ body {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
-    height: 35px;
-    line-height: 35px;
-    background: antiquewhite;
+    height: 25px;
+    line-height: 25px;
+    background: #8884d8;
     color: black;
     font-style: italic;
 }
@@ -61,6 +61,13 @@ body {
     font-size: 12px;
 }
 
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
 
 @media only screen and (max-width: 480px) {
     .dbdata {
