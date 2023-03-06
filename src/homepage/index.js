@@ -1,5 +1,7 @@
 import React from 'react'
 import { Header, Table, Input, Button} from 'semantic-ui-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowTrendUp, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
 import Divider from '../components/Divider'
@@ -103,14 +105,14 @@ class HomePage extends React.Component {
                     <Table.HeaderCell>Technical Indicator</Table.HeaderCell>
                     {
                       this.state.tickerData && this.state.tickerData.map((item, index) => {
-                        return (<Table.HeaderCell key={index}> {item.Symbol}</Table.HeaderCell>)
+                        return (<Table.HeaderCell key={index}> {item.Symbol} </Table.HeaderCell>)
                       })
                     }
                   </Table.Row>
                 </Table.Header>
             
                 <Table.Body>
-                  <Table.Row fullWidth className='sectionHeader'> <Table.Cell colSpan={(this.state.tickerData.length + 1) + ""}>Valuation</Table.Cell>  
+                  <Table.Row fullWidth className='sectionHeader'> <Table.Cell colSpan={(this.state.tickerData.length + 1) + ""}>Valuation <FontAwesomeIcon icon={faArrowTrendUp} size={12} /> </Table.Cell>  
                   </Table.Row>
                     {
                         this.valuationList && this.valuationList.map((item, index) => {
@@ -126,7 +128,7 @@ class HomePage extends React.Component {
                         })
                         
                     }
-                     <Table.Row fullWidth className='sectionHeader'><Table.Cell  colSpan={(this.state.tickerData.length + 1) + ""}>Profitability</Table.Cell> </Table.Row>
+                     <Table.Row fullWidth className='sectionHeader'><Table.Cell  colSpan={(this.state.tickerData.length + 1) + ""}>Profitability <FontAwesomeIcon icon={faSackDollar} size={12} /> </Table.Cell> </Table.Row>
 
                      {
                         this.profitList && this.profitList.map((item, index) => {

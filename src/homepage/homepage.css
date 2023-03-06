@@ -1,6 +1,8 @@
 body {
     background-color: #28174E;
     font-size: 18px;
+    margin: 5px;
+    border-color: white;
 }
 .dbdata {
     margin: 3rem;
