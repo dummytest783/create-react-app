@@ -1,12 +1,14 @@
 import React from 'react'
+import axios from 'axios';
 import { Header, Table, Input, Button} from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowTrendUp, faSackDollar } from '@fortawesome/free-solid-svg-icons';
+
 import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
 import Divider from '../components/Divider'
+import Footer from '../components/Footer'
 import StockboardBarChart from '../components/StockboardBarChart'
-import axios from 'axios';
 import appkey from '../config/appkey.json'
 import { sortByDate } from '../utils'
 
@@ -171,6 +173,7 @@ class HomePage extends React.Component {
                     
             </div>
             </div>
+            <Footer />
           </div>
       )
     }

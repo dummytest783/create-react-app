@@ -28,14 +28,6 @@ body {
     margin: 3rem;
 }
 
-.footer {
-    height: 50px;
-    width: 100%;
-    position: absolute;
-    bottom: 1rem;
-    background-color: #eee;
-}
-
 .tickerInput {
     width: 300px;
 }
