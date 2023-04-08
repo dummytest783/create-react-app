@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import { Header, Table, Input, Button} from 'semantic-ui-react';
+import { Header, Table, Button} from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowTrendUp, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,6 +8,7 @@ import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
 import Divider from '../components/Divider'
 import Footer from '../components/Footer'
+import MultiSelect from '../components/MultiSelect'
 import StockboardBarChart from '../components/StockboardBarChart'
 import appkey from '../config/appkey.json'
 import { sortByDate } from '../utils'
@@ -31,9 +32,14 @@ class HomePage extends React.Component {
         this.state = {
           inputTicker :'',
           tickerData: [],
-          incomeStmtdata: []
+          incomeStmtdata: [],
+          multiSelectInput: []
         };
     }
+
+    handleSelectChange = (selectedValues) =>  {
+      this.setState({multiSelectInput: selectedValues})
+    };
 
     isValueGood(item, value) {
        const allNumbers = this.state.tickerData.map(stock => parseFloat(stock[item.key]))
@@ -56,13 +62,11 @@ class HomePage extends React.Component {
       }
 
       Promise.all(requestTickerPromises).then((values) => {
-        console.log('ticker data', values);
         this.setState({tickerData: values.map(value => value.data)})
       });
     }
 
     getIncomeStmtData (inputArray) {
-      console.log('income data ', inputArray)
       const apikey = appkey.graphAlphaVintageKey;
       const requestPromises = [];
       for (const ticker of inputArray) {
@@ -71,7 +75,6 @@ class HomePage extends React.Component {
       }
 
       Promise.all(requestPromises).then((values) => {
-        console.log('income stmt', values);
         const incomeStmtDataArr = values.map(value => {
           return {tickerName: value.data.symbol, value: value.data}
         })
@@ -79,14 +82,12 @@ class HomePage extends React.Component {
       });
     }
 
-    handleTickerChange (e) {
-      this.setState({inputTicker: e.target.value})
-    }
+    // handleTickerChange (e) {
+    //   this.setState({inputTicker: e.target.value})
+    // }
 
     searchClick() {
-      const tickerStr = this.state.inputTicker.replace(/\s+/g, "");
-      const inputArray = tickerStr.split(',');
-      console.log(inputArray)
+      const inputArray = this.state.multiSelectInput.map(tickerObj => tickerObj.value)
       this.setState({'inputTicker': ''})
       this.getTickerData(inputArray)
       this.getIncomeStmtData(inputArray)
@@ -98,8 +99,10 @@ class HomePage extends React.Component {
         <div> 
           <div className="dbdata">
             <Header as='h1' className='pageHeader'> Which Stock to Buy? </Header>
-            <Input placeholder='Enter coma seperated ticker' className='tickerInput' value={this.state.inputTicker} onChange={e => this.handleTickerChange(e)} />
-            <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
+            <div>
+              <MultiSelect setMultiSelectValues={this.handleSelectChange} multiSelectInput={this.state.multiSelectInput}/>
+              <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
+            </div>
             <div>
               <Table unstackable className="table">
                 <Table.Header>
@@ -154,7 +157,6 @@ class HomePage extends React.Component {
               <Divider label="Net Income Growth of Last 5 Years"/>
               {
                 this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
-                  console.log('data....', data.value.annualReports)
                   const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.netIncome} }));
                   return (<StockboardBarChart data={charObj} tickerName={data.tickerName} />)
                 })
@@ -165,7 +167,6 @@ class HomePage extends React.Component {
               <Divider label="Revenue Growth of Last 5 Years"/>
               {
                 this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
-                  console.log('data....', data.value.annualReports)
                   const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.totalRevenue} }));
                   return (<StockboardBarChart data={charObj} tickerName={data.tickerName} />)
                 })

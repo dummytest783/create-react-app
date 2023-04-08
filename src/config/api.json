@@ -1,0 +1,4 @@
+{
+    "polygon": "https://api.polygon.io",
+    "polygonSearchTickerApi": "/v3/reference/tickers"
+}

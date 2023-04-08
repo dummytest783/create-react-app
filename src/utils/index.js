@@ -15,7 +15,21 @@ function sortByDate(list) {
     return list.sort((a, b) => new Date(a.date) - new Date(b.date));
 }
 
-  export {
-    numberFormater,
-    sortByDate
-  }
+function trimSentence(sentence) {
+  return sentence.trim().split(' ').slice(0, 2).join(' ');
+}
+
+function debounce(func, timeout = 1000){
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
+
+export {
+  numberFormater,
+  sortByDate,
+  trimSentence,
+  debounce
+}

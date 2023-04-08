@@ -3,7 +3,6 @@ import {numberFormater} from '../../utils'
 import './index.css'
 
 function StockboardBarChart({data, tickerName}) {
-    console.log('data  is ', data, tickerName)
     const charSize = window.innerWidth < 450 ? '350px' : '800px';
     return (
         <div className='chartLayout'>

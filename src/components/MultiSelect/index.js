@@ -1,42 +1,71 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import axios from 'axios';
-import options from './options';
 import appkey from '../../config/appkey.json';
+import api from '../../config/api.json';
+import {trimSentence, debounce} from '../../utils/index'
 
-const filterColors = (inputValue) => {
-  return options.filter((i) =>
-    i.label.toLowerCase().includes(inputValue.toLowerCase())
-  );
+const getConvertedOptions = (response) => {
+  return response.data && response.data.results && response.data.results.filter(val => val.locale === 'us').map((obj) => {
+    return {label: `${trimSentence(obj.name)} (${obj.ticker})`, value: obj.ticker};
+  });
 };
 
-const promiseOptions = (inputValue) =>{
-  //searchTicker(inputValue)
+const multiSelectFn = (inputValue) =>{
+  if(!inputValue || inputValue.length ===0) {
+    return [];
+  }
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(filterColors(inputValue));
-    }, 1000);
+    debouncedFn(inputValue, resolve)
   });
 }
 
-const searchTicker =  (inputStr) =>  {
-  const apikey = appkey.alphaVintageKey;
-  const apiUrl = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${inputStr}&apikey=${apikey}`;
+function getApiTickerData(inputValue, resolve) {
+  const apikey = appkey.polygonIOKey;
+  const apiUrl = `${api.polygon}${api.polygonSearchTickerApi}?market=stocks&search=${inputValue}&apiKey=${apikey}`;
   axios.get(apiUrl).then(response => {
-    console.log('response ',  response)
+    const selectOptions = getConvertedOptions(response);
+    resolve(selectOptions);
   })
-
 }
 
+const debouncedFn = debounce(getApiTickerData, 1000);
 
-function MultiSelect() {
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    border: '2px solid #ccc',
+    borderRadius: '4px',
+    padding: '5px',
+    boxShadow: state.isFocused ? '0 0 0 2px #007bff' : null,
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? '#007bff' : null,
+    color: state.isFocused ? 'white' : null,
+    cursor: 'pointer',
+  }),
+  dropdownIndicator: (provided, state) => ({
+    ...provided,
+    display: 'none',
+    color: state.isFocused ? '#007bff' : null,
+  })
+}
+function MultiSelect({setMultiSelectValues, multiSelectInput}) {
+  const handleSelectChange = (selectedOptions) => {
+    setMultiSelectValues(selectedOptions)
+  };
+
   return (
     <AsyncSelect
     isMulti
     cacheOptions
-    defaultOptions
-    loadOptions={promiseOptions}
+    styles={customStyles}
+    onChange={handleSelectChange}
+    value={multiSelectInput}
+    loadOptions={multiSelectFn}
+    placeholder="Type company name"
+    noOptionsMessage={() => null}
   />
   )
 }
