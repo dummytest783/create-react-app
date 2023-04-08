@@ -18,6 +18,10 @@ body {
     background-color: #ff2a26;
 }
 
+.infoIcon {
+    margin-left: 8px;
+}
+
 .updatetime {
     font-size: 14px;
     float: right;

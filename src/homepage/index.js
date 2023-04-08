@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios';
-import { Header, Table, Button} from 'semantic-ui-react';
+import { Header, Table, Button, Popup} from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowTrendUp, faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { faArrowTrendUp, faSackDollar, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
@@ -18,15 +18,15 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.valuationList = [
-          {key: 'PERatio', better: 'lower', desc: 'Price/Earning'},
-          {key: 'PEGRatio', better: 'lower', desc: 'P/E Growth (less than 1 is undervalued)'},
-          {key: 'EPS', better: 'higher', desc: 'Earning per share'},
-          {key: 'DividendYield', better: 'higher', desc: 'Dividend you earn on every 1$'}
+          {key: 'PERatio', better: 'lower', desc: 'Price/Earning', info: 'P/E ratio = Market Price of Stock / Earnings per Share (EPS)'},
+          {key: 'PEGRatio', better: 'lower', desc: 'P/E Growth (less than 1 is undervalued)', info: 'PEG ratio = P/E ratio / Expected Earnings Growth Rate.'},
+          {key: 'EPS', better: 'higher', desc: 'Earning per share', info: 'EPS = (Net Earnings - Preferred Stock Dividends) / Weighted Average Number of Outstanding Shares'},
+          {key: 'DividendYield', better: 'higher', desc: 'Dividend you earn on every 1$', info: 'Dividend Yield = (Annual Dividends per Share / Current Market Price per Share) x 100'}
         ];
         this.profitList = [
-            {key: 'ProfitMargin', better: 'higher', desc: 'Profit Margin'},
-            {key: 'ReturnOnAssetsTTM', better: 'higher', desc: 'Return on Asset Last 12 months'},
-            {key: 'ReturnOnEquityTTM', better: 'higher', desc: 'Return on Equity Last 12 months'}
+            {key: 'ProfitMargin', better: 'higher', desc: 'Profit Margin', info: 'Profit Margin = (Net Income / Total Revenue) x 100'},
+            {key: 'ReturnOnAssetsTTM', better: 'higher', desc: 'Return on Asset Last 12 months', info: 'ROA TTM = (Net Income TTM / Average Total Assets TTM) x 100'},
+            {key: 'ReturnOnEquityTTM', better: 'higher', desc: 'Return on Equity Last 12 months', info: 'ROE TTM = (Net Income TTM / Average Shareholders Equity TTM) x 100'}
         ];
 
         this.state = {
@@ -117,12 +117,20 @@ class HomePage extends React.Component {
                 </Table.Header>
             
                 <Table.Body>
-                  <Table.Row fullWidth className='sectionHeader'> <Table.Cell colSpan={(this.state.tickerData.length + 1) + ""}>Valuation <FontAwesomeIcon icon={faArrowTrendUp} size={12} /> </Table.Cell>  
+                  <Table.Row fullWidth className='sectionHeader'> <Table.Cell colSpan={(this.state.tickerData.length + 1) + ""}>Valuation 
+                  <FontAwesomeIcon icon={faArrowTrendUp} size={12} /> </Table.Cell>  
                   </Table.Row>
                     {
                         this.valuationList && this.valuationList.map((item, index) => {
                           return (<Table.Row key={index}>
-                              <Table.Cell> {item.key}  <span className='desc'> {item.desc}</span></Table.Cell>
+                              <Table.Cell> {item.key}  <span className='desc'> {item.desc} </span>
+                              <Popup
+                                trigger={<FontAwesomeIcon icon={faInfoCircle} size={12} />}
+                                content={item.info} 
+                                className='infoIcon'
+                                position="top center"
+                              />
+                              </Table.Cell>
                               {
                                 this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
                                   return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' } > {tickerDataObj[item.key]} </Table.Cell>)
@@ -138,7 +146,14 @@ class HomePage extends React.Component {
                      {
                         this.profitList && this.profitList.map((item, index) => {
                           return (<Table.Row key={index}>
-                              <Table.Cell> {item.key} <span className='desc'> {item.desc}</span> </Table.Cell>
+                              <Table.Cell> {item.key} <span className='desc'> {item.desc}</span> 
+                                <Popup
+                                  trigger={<FontAwesomeIcon icon={faInfoCircle} size={12} />}
+                                  content={item.info} 
+                                  className='infoIcon'
+                                  position="top center"
+                                />
+                              </Table.Cell>
                               {
                                 this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
                                   return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' }  > {tickerDataObj[item.key]} </Table.Cell>)
