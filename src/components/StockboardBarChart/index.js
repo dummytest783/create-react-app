@@ -1,5 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import {numberFormater} from '../../utils'
+import CustomTooltip from '../CustomTooltip';
 import './index.css'
 
 function StockboardBarChart({data, tickerName}) {
@@ -19,7 +20,7 @@ function StockboardBarChart({data, tickerName}) {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date" />
                         <YAxis tickFormatter={numberFormater}  />
-                        <Tooltip />
+                        <Tooltip  content={<CustomTooltip />}/>
                         <Legend verticalAlign="bottom"/>
                         <Bar dataKey="value" fill="#8884d8"  />
                     </BarChart>

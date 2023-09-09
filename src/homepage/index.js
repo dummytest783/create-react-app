@@ -53,6 +53,19 @@ class HomePage extends React.Component {
        return false;
     }
 
+    addPercentageGrowth(chartList) {
+      return chartList && chartList.map((chartItem, index) => {
+          if(index) {
+            const current = parseInt(chartList[index].value);
+            const prev = parseInt(chartList[index-1].value);
+            const percentage = ((current - prev) / prev) * 100;
+            return {...chartItem, 'percentage': `${percentage.toFixed(1)}%`}
+          } else {
+            return chartItem;
+          }
+      })
+    }
+
     getTickerData (inputArray) {
       const apikey = appkey.alphaVintageKey;
       const requestTickerPromises = [];
@@ -172,8 +185,10 @@ class HomePage extends React.Component {
               <Divider label="Net Income Growth of Last 5 Years"/>
               {
                 this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
-                  const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.netIncome} }));
-                  return (<StockboardBarChart data={charObj} tickerName={data.tickerName} />)
+                  const dataList = data.value.annualReports ? data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.netIncome} }) : []
+                  const sortedData = sortByDate(dataList);
+                  const dataWithPercentage = this.addPercentageGrowth(sortedData)
+                  return (<StockboardBarChart data={dataWithPercentage} tickerName={data.tickerName} />)
                 })
               }
                     
@@ -182,8 +197,10 @@ class HomePage extends React.Component {
               <Divider label="Revenue Growth of Last 5 Years"/>
               {
                 this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
-                  const charObj = sortByDate(data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.totalRevenue} }));
-                  return (<StockboardBarChart data={charObj} tickerName={data.tickerName} />)
+                  const dataList = data.value.annualReports ?  data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.totalRevenue} }) : []
+                  const sortedData = sortByDate(dataList);
+                  const dataWithPercentage = this.addPercentageGrowth(sortedData)
+                  return (<StockboardBarChart data={dataWithPercentage} tickerName={data.tickerName} />)
                 })
               }
                     
