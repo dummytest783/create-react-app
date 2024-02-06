@@ -54,7 +54,7 @@ class HomePage extends React.Component {
     }
 
     addPercentageGrowth(chartList) {
-      return chartList && chartList.map((chartItem, index) => {
+      return chartList && chartList.slice(-5).map((chartItem, index) => {
           if(index) {
             const current = parseInt(chartList[index].value);
             const prev = parseInt(chartList[index-1].value);
@@ -186,7 +186,7 @@ class HomePage extends React.Component {
               {
                 this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
                   const dataList = data.value.annualReports ? data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.netIncome} }) : []
-                  const sortedData = sortByDate(dataList);
+                  let sortedData = sortByDate(dataList);
                   const dataWithPercentage = this.addPercentageGrowth(sortedData)
                   return (<StockboardBarChart data={dataWithPercentage} tickerName={data.tickerName} />)
                 })
