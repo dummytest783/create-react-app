@@ -3,33 +3,33 @@ import AsyncSelect from 'react-select/async';
 import axios from 'axios';
 import appkey from '../../config/appkey.json';
 import api from '../../config/api.json';
-import {trimSentence, debounce} from '../../utils/index'
+import { trimSentence, debounce } from '../../utils/index';
 
 const getConvertedOptions = (response) => {
-  return response.data && response.data.results && response.data.results.filter(val => val.locale === 'us').map((obj) => {
-    return {label: `${trimSentence(obj.name)} (${obj.ticker})`, value: obj.ticker};
+  return response.data && response.data.map((obj) => {
+    return { label: `${trimSentence(obj.name)} (${obj.symbol})`, value: obj.symbol };
   });
 };
 
-const multiSelectFn = (inputValue) =>{
-  if(!inputValue || inputValue.length ===0) {
+const multiSelectFn = (inputValue) => {
+  if (!inputValue || inputValue.length === 0) {
     return [];
   }
   return new Promise((resolve) => {
-    debouncedFn(inputValue, resolve)
+    debouncedFn(inputValue, resolve);
+  });
+};
+
+function getApiTickerData(inputValue, resolve) {
+  const apikey = appkey.fmpKey_P; // Use the FMP API key
+  const apiUrl = `${api.fmp}${api.fmpSearchTickerApi}?query=${inputValue}&apikey=${apikey}&exchange=NASDAQ&exchange=NYSE`;
+  axios.get(apiUrl).then((response) => {
+    const selectOptions = getConvertedOptions(response);
+    resolve(selectOptions);
   });
 }
 
-function getApiTickerData(inputValue, resolve) {
-  const apikey = appkey.polygonIOKey;
-  const apiUrl = `${api.polygon}${api.polygonSearchTickerApi}?market=stocks&search=${inputValue}&apiKey=${apikey}`;
-  axios.get(apiUrl).then(response => {
-    const selectOptions = getConvertedOptions(response);
-    resolve(selectOptions);
-  })
-}
-
-const debouncedFn = debounce(getApiTickerData, 1000);
+const debouncedFn = debounce(getApiTickerData, 10);
 
 const customStyles = {
   control: (provided, state) => ({
@@ -49,24 +49,26 @@ const customStyles = {
     ...provided,
     display: 'none',
     color: state.isFocused ? '#007bff' : null,
-  })
-}
-function MultiSelect({setMultiSelectValues, multiSelectInput}) {
+  }),
+};
+
+function MultiSelect({ setMultiSelectValues, multiSelectInput }) {
   const handleSelectChange = (selectedOptions) => {
-    setMultiSelectValues(selectedOptions)
+    setMultiSelectValues(selectedOptions);
   };
 
   return (
     <AsyncSelect
-    isMulti
-    cacheOptions
-    styles={customStyles}
-    onChange={handleSelectChange}
-    value={multiSelectInput}
-    loadOptions={multiSelectFn}
-    placeholder="Type company name"
-    noOptionsMessage={() => null}
-  />
-  )
+      isMulti
+      cacheOptions
+      styles={customStyles}
+      onChange={handleSelectChange}
+      value={multiSelectInput}
+      loadOptions={multiSelectFn}
+      placeholder="Type company name"
+      noOptionsMessage={() => null}
+    />
+  );
 }
+
 export default MultiSelect;
