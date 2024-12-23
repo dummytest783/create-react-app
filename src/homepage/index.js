@@ -68,8 +68,6 @@ class HomePage extends React.Component {
       // Resolve all promises and maintain the association with the ticker
       Promise.all(requestTickerPromises)
         .then((values) => {
-          console.log('ticker data', values);
-    
           // Update state with the data, including the ticker symbol
           this.setState({ tickerData: values });
         })
@@ -97,7 +95,6 @@ class HomePage extends React.Component {
           };
         });
         
-        console.log('incomeStmtDataArr', incomeStmtDataArr)
         this.setState({incomeStmtdata: incomeStmtDataArr})
       });
     }
@@ -153,7 +150,6 @@ class HomePage extends React.Component {
                               </Table.Cell>
                               {
                                 this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
-                                  console.log('tickerDataObj', tickerDataObj)
                                   return (<Table.Cell className = {this.isValueGood(item, tickerDataObj.data[item.key]) && 'upcolor' } > {roundToTwoDecimals(tickerDataObj.data[item.key])} </Table.Cell>)
                                 })
                               }
