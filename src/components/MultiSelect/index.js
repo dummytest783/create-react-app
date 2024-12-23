@@ -35,7 +35,7 @@ const customStyles = {
   control: (provided, state) => ({
     ...provided,
     border: '2px solid #ccc',
-    borderRadius: '4px',
+    borderRadius: '25px',
     padding: '5px',
     boxShadow: state.isFocused ? '0 0 0 2px #007bff' : null,
   }),

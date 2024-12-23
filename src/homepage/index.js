@@ -113,14 +113,24 @@ class HomePage extends React.Component {
 
     render() {
       return  (
-        <div> 
-          <div className="dbdata">
+        <div className='home'> 
+          <div className="header">
+            <nav class="navbar">
+              <div class="logo">
+                <img src="logo.png" alt="Logo" />
+              </div>
+              <ul class="nav-links">
+                <li><a href="#home"></a></li>
+              </ul>
+            </nav>
+          </div>
+          <div className="content">
             <Header as='h1' className='pageHeader'> Search Engine of Investing </Header>
             <div>
               <MultiSelect setMultiSelectValues={this.handleSelectChange} multiSelectInput={this.state.multiSelectInput}/>
               <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
             </div>
-            <div>
+            <div className={this.state.tickerData && this.state.tickerData.length ? 'show' : 'hide'}>
               <Table unstackable className="table">
                 <Table.Header>
                   <Table.Row>
@@ -204,8 +214,10 @@ class HomePage extends React.Component {
                     
             </div>
             </div>
+          <div>
             <Footer />
-          </div>
+          </div> 
+        </div>
       )
     }
 }
