@@ -6,27 +6,27 @@ import { faArrowTrendUp, faSackDollar, faInfoCircle } from '@fortawesome/free-so
 
 import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
-import Divider from '../components/Divider'
 import Footer from '../components/Footer'
 import MultiSelect from '../components/MultiSelect'
-import StockboardBarChart from '../components/StockboardBarChart'
+import ChartSection from '../components/ChartSection'
 import appkey from '../config/appkey.json'
-import { sortByDate } from '../utils'
+import api from '../config/api.json'
+import { roundToTwoDecimals } from '../utils/index';
 
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.valuationList = [
-          {key: 'PERatio', better: 'lower', desc: 'Price/Earning', info: 'P/E ratio = Market Price of Stock / Earnings per Share (EPS)'},
-          {key: 'PEGRatio', better: 'lower', desc: 'P/E Growth (less than 1 is undervalued)', info: 'PEG ratio = P/E ratio / Expected Earnings Growth Rate.'},
-          {key: 'EPS', better: 'higher', desc: 'Earning per share', info: 'EPS = (Net Earnings - Preferred Stock Dividends) / Weighted Average Number of Outstanding Shares'},
-          {key: 'DividendYield', better: 'higher', desc: 'Dividend you earn on every 1$', info: 'Dividend Yield = (Annual Dividends per Share / Current Market Price per Share) x 100'}
+          {key: 'peRatioTTM', label:'PE', better: 'lower', desc: 'Price/Earning', info: 'P/E ratio = Market Price of Stock / Earnings per Share (EPS)'},
+          {key: 'pegRatioTTM', label:'PEG', better: 'lower', desc: 'P/E Growth (less than 1 is undervalued)', info: 'PEG ratio = P/E ratio / Expected Earnings Growth Rate.'},
+          {key: 'returnOnEquityTTM', label:'ROE', better: 'higher', desc: 'Return on Equity', info: 'ROE = (Net Income) / Weighted Average Number of Outstanding Shares'},
+          {key: 'dividendYielPercentageTTM', label:'DividendYield', better: 'higher', desc: 'Dividend you earn on every 1$', info: 'Dividend Yield = (Annual Dividends per Share / Current Market Price per Share) x 100'}
         ];
         this.profitList = [
-            {key: 'ProfitMargin', better: 'higher', desc: 'Profit Margin', info: 'Profit Margin = (Net Income / Total Revenue) x 100'},
-            {key: 'ReturnOnAssetsTTM', better: 'higher', desc: 'Return on Asset Last 12 months', info: 'ROA TTM = (Net Income TTM / Average Total Assets TTM) x 100'},
-            {key: 'ReturnOnEquityTTM', better: 'higher', desc: 'Return on Equity Last 12 months', info: 'ROE TTM = (Net Income TTM / Average Shareholders Equity TTM) x 100'}
+            {key: 'netProfitMarginTTM', label:'ProfitMargin', better: 'higher', desc: 'Profit Margin', info: 'Profit Margin = (Net Income / Total Revenue) x 100'},
+            {key: 'returnOnAssetsTTM',label:'ReturnOnAssets', better: 'higher', desc: 'Return on Asset Last 12 months', info: 'ROA TTM = (Net Income TTM / Average Total Assets TTM) x 100'},
+            {key: 'returnOnEquityTTM',label:'ReturnOnEquity', better: 'higher', desc: 'Return on Equity Last 12 months', info: 'ROE TTM = (Net Income TTM / Average Shareholders Equity TTM) x 100'}
         ];
 
         this.state = {
@@ -53,44 +53,51 @@ class HomePage extends React.Component {
        return false;
     }
 
-    addPercentageGrowth(chartList) {
-      return chartList && chartList.slice(-5).map((chartItem, index) => {
-          if(index) {
-            const current = parseInt(chartList[index].value);
-            const prev = parseInt(chartList[index-1].value);
-            const percentage = ((current - prev) / prev) * 100;
-            return {...chartItem, 'percentage': `${percentage.toFixed(1)}%`}
-          } else {
-            return chartItem;
-          }
-      })
-    }
-
-    getTickerData (inputArray) {
-      const apikey = appkey.alphaVintageKey;
-      const requestTickerPromises = [];
-      for (const ticker of inputArray) {
-        const apiUrl = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${apikey}`;
-        requestTickerPromises.push(axios.get(apiUrl))
-      }
-
-      Promise.all(requestTickerPromises).then((values) => {
-        this.setState({tickerData: values.map(value => value.data)})
+    getTickerData(inputArray) {
+      const apikey = appkey.fmpKey_P;
+      const requestTickerPromises = inputArray.map((ticker) => {
+        const apiUrl = `${api.fmp}/api/v3/ratios-ttm/${ticker}?apikey=${apikey}`;
+        
+        // Return the promise along with the ticker identifier
+        return axios.get(apiUrl).then((response) => ({
+          Symbol: ticker,
+          data: response.data && response.data[0],
+        }));
       });
+    
+      // Resolve all promises and maintain the association with the ticker
+      Promise.all(requestTickerPromises)
+        .then((values) => {
+          console.log('ticker data', values);
+    
+          // Update state with the data, including the ticker symbol
+          this.setState({ tickerData: values });
+        })
+        .catch((error) => {
+          console.error('Error fetching ticker data:', error);
+          // Handle errors as needed
+        });
     }
 
     getIncomeStmtData (inputArray) {
-      const apikey = appkey.graphAlphaVintageKey;
+      const apikey = appkey.fmpKey_P;
       const requestPromises = [];
       for (const ticker of inputArray) {
-        const apiUrl = `https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${ticker}&apikey=${apikey}`;
+        const apiUrl = `${api.fmp}${api.fmpIncomeStatementApi}/${ticker}?period=annual&apikey=${apikey}&limit=5`;
         requestPromises.push(axios.get(apiUrl))
       }
 
       Promise.all(requestPromises).then((values) => {
+        // Populates the income statement data array with the ticker name and the data being used for both charts net income and revenue.
         const incomeStmtDataArr = values.map(value => {
-          return {tickerName: value.data.symbol, value: value.data}
-        })
+          const data = value.data && value.data.length ? value.data : []; // Ensure data exists and is not empty
+          return {
+            tickerName: data.length > 0 ? data[0].symbol : 'N/A', // Check if data[0] exists
+            value: data
+          };
+        });
+        
+        console.log('incomeStmtDataArr', incomeStmtDataArr)
         this.setState({incomeStmtdata: incomeStmtDataArr})
       });
     }
@@ -136,7 +143,7 @@ class HomePage extends React.Component {
                     {
                         this.valuationList && this.valuationList.map((item, index) => {
                           return (<Table.Row key={index}>
-                              <Table.Cell> {item.key}  <span className='desc'> {item.desc} </span>
+                              <Table.Cell> {item.label}  <span className='desc'> {item.desc} </span>
                               <Popup
                                 trigger={<FontAwesomeIcon icon={faInfoCircle} size={12} />}
                                 content={item.info} 
@@ -146,7 +153,8 @@ class HomePage extends React.Component {
                               </Table.Cell>
                               {
                                 this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
-                                  return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' } > {tickerDataObj[item.key]} </Table.Cell>)
+                                  console.log('tickerDataObj', tickerDataObj)
+                                  return (<Table.Cell className = {this.isValueGood(item, tickerDataObj.data[item.key]) && 'upcolor' } > {roundToTwoDecimals(tickerDataObj.data[item.key])} </Table.Cell>)
                                 })
                               }
                           </Table.Row>)
@@ -159,7 +167,7 @@ class HomePage extends React.Component {
                      {
                         this.profitList && this.profitList.map((item, index) => {
                           return (<Table.Row key={index}>
-                              <Table.Cell> {item.key} <span className='desc'> {item.desc}</span> 
+                              <Table.Cell> {item.label} <span className='desc'> {item.desc}</span> 
                                 <Popup
                                   trigger={<FontAwesomeIcon icon={faInfoCircle} size={12} />}
                                   content={item.info} 
@@ -169,7 +177,7 @@ class HomePage extends React.Component {
                               </Table.Cell>
                               {
                                 this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
-                                  return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' }  > {tickerDataObj[item.key]} </Table.Cell>)
+                                  return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' }  > {roundToTwoDecimals(tickerDataObj.data[item.key])} </Table.Cell>)
                                 })
                               }
                           </Table.Row>)
@@ -182,27 +190,21 @@ class HomePage extends React.Component {
               </Table>
             </div>
             <div className={this.state.incomeStmtdata && this.state.incomeStmtdata.length ? 'show' : 'hide'}>
-              <Divider label="Net Income Growth of Last 5 Years"/>
-              {
-                this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
-                  const dataList = data.value.annualReports ? data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.netIncome} }) : []
-                  let sortedData = sortByDate(dataList);
-                  const dataWithPercentage = this.addPercentageGrowth(sortedData)
-                  return (<StockboardBarChart data={dataWithPercentage} tickerName={data.tickerName} />)
-                })
-              }
+              <ChartSection
+                  label="Net Income Growth of Last 5 Years"
+                  dataKey="netIncome"
+                  incomeStmtData={this.state.incomeStmtdata}
+                  addPercentageGrowth={this.addPercentageGrowth}
+                />
                     
             </div>
             <div className={this.state.incomeStmtdata && this.state.incomeStmtdata.length ? 'show' : 'hide'}>
-              <Divider label="Revenue Growth of Last 5 Years"/>
-              {
-                this.state.incomeStmtdata && this.state.incomeStmtdata.map((data) => {
-                  const dataList = data.value.annualReports ?  data.value.annualReports.map((annualReportObj) => { return {'date': new Date(annualReportObj.fiscalDateEnding).getFullYear(), 'value': annualReportObj.totalRevenue} }) : []
-                  const sortedData = sortByDate(dataList);
-                  const dataWithPercentage = this.addPercentageGrowth(sortedData)
-                  return (<StockboardBarChart data={dataWithPercentage} tickerName={data.tickerName} />)
-                })
-              }
+              <ChartSection
+                  label="Revenue Growth of Last 5 Years"
+                  dataKey="revenue"
+                  incomeStmtData={this.state.incomeStmtdata}
+                  addPercentageGrowth={this.addPercentageGrowth}
+                />
                     
             </div>
             </div>

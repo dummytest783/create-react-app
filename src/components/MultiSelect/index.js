@@ -65,7 +65,7 @@ function MultiSelect({ setMultiSelectValues, multiSelectInput }) {
       onChange={handleSelectChange}
       value={multiSelectInput}
       loadOptions={multiSelectFn}
-      placeholder="Type company name"
+      placeholder="Search for a Company or Etf"
       noOptionsMessage={() => null}
     />
   );

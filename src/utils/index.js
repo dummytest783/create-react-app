@@ -27,9 +27,35 @@ function debounce(func, timeout = 1000){
   };
 }
 
+function addPercentageGrowth(chartList, numberOfYears) {
+  return chartList && chartList.slice(-numberOfYears).map((chartItem, index) => {
+      if(index) {
+        const current = parseInt(chartList[index].value);
+        const prev = parseInt(chartList[index-1].value);
+        const percentage = ((current - prev) / prev) * 100;
+        return {...chartItem, 'percentage': `${percentage.toFixed(1)}%`}
+      } else {
+        return chartItem;
+      }
+  })
+}
+
+function roundToTwoDecimals(value) {
+  // Ensure the value is a number and round it to 2 decimal places
+  const numericValue = Number(value);
+  if (!isNaN(numericValue)) {
+    return parseFloat(numericValue.toFixed(2));
+  } else {
+    console.error('Invalid number:', value);
+    return 0; // Return a default value if the input is not a valid number
+  }
+}
+
 export {
   numberFormater,
   sortByDate,
   trimSentence,
-  debounce
+  debounce,
+  addPercentageGrowth,
+  roundToTwoDecimals
 }
