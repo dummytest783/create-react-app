@@ -126,7 +126,7 @@ class HomePage extends React.Component {
           </div>
           <div className="content">
             <Header as='h1' className='pageHeader'> Search Engine of Investing </Header>
-            <div>
+            <div className='searchSection'>
               <MultiSelect setMultiSelectValues={this.handleSelectChange} multiSelectInput={this.state.multiSelectInput}/>
               <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
             </div>

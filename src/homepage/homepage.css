@@ -1,74 +1,82 @@
+/* General Styles */
 body {
     background-color: #28174E;
     font-size: 18px;
-    margin: 5px;
+    margin: 10px;
     border-color: white;
 }
+
 .home {
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
 
-  .navbar {
+/* Navbar Styles */
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #2a1e4e; /* Match your site's theme */
     color: #fff;
-    padding: 0px 0px;
+    padding: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo {
+}
+
+.logo {
     display: flex;
     align-items: center;
     font-size: 20px;
     font-weight: bold;
-  }
-  
-  .logo img {
+}
+
+.logo img {
     height: 60px;
     margin-right: 10px;
-  }
-  
-  .nav-links {
+}
+
+.nav-links {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
-  }
-  
-  .nav-links li {
+}
+
+.nav-links li {
     margin: 0 15px;
-  }
-  
-  .nav-links a {
+}
+
+.nav-links a {
     color: #fff;
     text-decoration: none;
     font-size: 16px;
     transition: color 0.3s ease;
-  }
-  
-  .nav-links a:hover {
+}
+
+.nav-links a:hover {
     color: #e0b1ff; /* A lighter shade for hover effect */
-  }
-  
+}
+
+/* Content Area */
 .content {
-    margin: 3rem;
     flex: 1;
+    margin: 15px 0;
 }
 
 .header {
     text-align: center;
 }
+
+/* Colors */
 .upcolor {
     background-color: #5AC3BF;
 }
+
 .downcolor {
     background-color: #ff2a26;
 }
 
+/* Miscellaneous Styles */
 .infoIcon {
     margin-left: 8px;
 }
@@ -101,31 +109,40 @@ body {
 .pageHeader {
     color: white !important;
 }
-.ui.primary.button, .ui.primary.buttons .button .searchbtn{
+
+/* Buttons */
+.ui.primary.button,
+.ui.primary.buttons .button .searchbtn {
     margin: 10px !important;
     width: 80px;
     border-radius: 40px;
     background: #28174E;
     border: 1px solid white;
 }
+
 .ui.primary.button.searchbtn:focus {
     background: #28174E;
 }
-.ui.primary.button.searchbtn:hover{
+
+.ui.primary.button.searchbtn:hover {
     width: 80px;
     border-radius: 40px;
     background: #8884d8;
     border: 1px solid white;
 }
+
+/* Table */
 .table {
-    margin: 10px 0px !important;
+    margin: 10px 0 !important;
 }
 
+/* Text Styles */
 .desc {
     color: green;
     font-size: 12px;
 }
 
+/* Visibility Helpers */
 .hide {
     display: none;
 }
@@ -134,8 +151,14 @@ body {
     display: block;
 }
 
-@media only screen and (max-width: 480px) {
+/* Responsive Design */
+@media only screen and (min-width: 480px) {
     .content {
-      margin: 15px 0px;
+        margin: 3rem;
     }
-  }
+    .searchSection {
+        width: 50vw;
+        margin: 0 auto;
+    }
+
+}
