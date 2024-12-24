@@ -42,7 +42,7 @@ class HomePage extends React.Component {
     };
 
     isValueGood(item, value) {
-       const allNumbers = this.state.tickerData.map(stock => parseFloat(stock[item.key]))
+       const allNumbers = this.state.tickerData.map(stock => stock.data && parseFloat(stock.data[item.key]))
        if(item.better === 'lower') {
           return Math.min(...allNumbers) === parseFloat(value)
        } else if (item.better === 'higher') {
@@ -183,7 +183,7 @@ class HomePage extends React.Component {
                               </Table.Cell>
                               {
                                 this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
-                                  return (<Table.Cell className = {this.isValueGood(item, tickerDataObj[item.key]) && 'upcolor' }  > {roundToTwoDecimals(tickerDataObj.data[item.key])} </Table.Cell>)
+                                  return (<Table.Cell className = {this.isValueGood(item, tickerDataObj.data[item.key]) && 'upcolor' }  > {roundToTwoDecimals(tickerDataObj.data[item.key])} </Table.Cell>)
                                 })
                               }
                           </Table.Row>)
