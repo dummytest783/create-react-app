@@ -1,0 +1,46 @@
+.metricsTable {
+    .sectionHeader {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        height: 25px;
+        line-height: 25px;
+        background: #8884d8;
+        color: white;
+        font-style: italic;
+    }
+
+    /* Text Styles */
+    .desc {
+        color: green;
+        font-size: 12px;
+    }
+
+    /* Miscellaneous Styles */
+    .infoIcon {
+        margin-left: 8px;
+    }
+
+    /* Colors */
+    .upcolor {
+        background-color: #5AC3BF;
+    }
+
+    .downcolor {
+        background-color: #ff2a26;
+    }
+
+    /* Table */
+    .table {
+        margin: 10px 0 !important;
+    }
+
+    /* Visibility Helpers */
+    .hide {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+}

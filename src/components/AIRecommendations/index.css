@@ -1,0 +1,67 @@
+
+  
+  .ai-recommendations {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #2c2c54;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .section {
+    margin-bottom: 30px;
+  }
+  
+  .summary-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  th,
+  td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #444;
+  }
+  
+  th {
+    background-color: #3c3c78;
+  }
+  
+  tr:hover {
+    background-color: #444475;
+  }
+  
+  @media (max-width: 768px) {
+    .ai-recommendations {
+      padding: 10px;
+    }
+  
+    table {
+      font-size: 0.9rem;
+    }
+  
+    th,
+    td {
+      padding: 5px;
+    }
+  }
+  

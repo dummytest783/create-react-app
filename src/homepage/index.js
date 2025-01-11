@@ -1,17 +1,16 @@
 import React from 'react'
 import axios from 'axios';
-import { Header, Table, Button, Popup} from 'semantic-ui-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowTrendUp, faSackDollar, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { Header, Button, Tab} from 'semantic-ui-react';
 
 import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
 import Footer from '../components/Footer'
 import MultiSelect from '../components/MultiSelect'
 import ChartSection from '../components/ChartSection'
+import AIRecommendations from '../components/AIRecommendations'
 import appkey from '../config/appkey.json'
 import api from '../config/api.json'
-import { roundToTwoDecimals } from '../utils/index';
+import MetricsTable from '../components/MetricsTable'
 
 
 class HomePage extends React.Component {
@@ -40,18 +39,6 @@ class HomePage extends React.Component {
     handleSelectChange = (selectedValues) =>  {
       this.setState({multiSelectInput: selectedValues})
     };
-
-    isValueGood(item, value) {
-       const allNumbers = this.state.tickerData.map(stock => stock.data && parseFloat(stock.data[item.key]))
-       if(item.better === 'lower') {
-          return Math.min(...allNumbers) === parseFloat(value)
-       } else if (item.better === 'higher') {
-          return Math.max(...allNumbers) === parseFloat(value)
-       } else if(item.better === 'lessThan1') {
-          return parseFloat(value) < 1
-       }
-       return false;
-    }
 
     getTickerData(inputArray) {
       const apikey = appkey.fmpKey_P;
@@ -104,97 +91,17 @@ class HomePage extends React.Component {
     // }
 
     searchClick() {
-      const inputArray = this.state.multiSelectInput.map(tickerObj => tickerObj.value)
+      this.inputArray = this.state.multiSelectInput.map(tickerObj => tickerObj.value)
+      console.log('inputArray:', this.inputArray)
       this.setState({'inputTicker': ''})
-      this.getTickerData(inputArray)
-      this.getIncomeStmtData(inputArray)
+      this.getTickerData(this.inputArray)
+      this.getIncomeStmtData(this.inputArray)
 
     }
 
-    render() {
-      return  (
-        <div className='home'> 
-          <div className="header">
-            <nav class="navbar">
-              <div class="logo">
-                <img src="logo.png" alt="Logo" />
-              </div>
-              <ul class="nav-links">
-                <li><a href="#home"></a></li>
-              </ul>
-            </nav>
-          </div>
-          <div className="content">
-            <Header as='h1' className='pageHeader'> Search Engine of Investing </Header>
-            <div className='searchSection'>
-              <MultiSelect setMultiSelectValues={this.handleSelectChange} multiSelectInput={this.state.multiSelectInput}/>
-              <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
-            </div>
-            <div className={this.state.tickerData && this.state.tickerData.length ? 'show' : 'hide'}>
-              <Table unstackable className="table">
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>Technical Indicator</Table.HeaderCell>
-                    {
-                      this.state.tickerData && this.state.tickerData.map((item, index) => {
-                        return (<Table.HeaderCell key={index}> {item.Symbol} </Table.HeaderCell>)
-                      })
-                    }
-                  </Table.Row>
-                </Table.Header>
-            
-                <Table.Body>
-                  <Table.Row fullWidth className='sectionHeader'> <Table.Cell colSpan={(this.state.tickerData.length + 1) + ""}>Valuation 
-                  <FontAwesomeIcon icon={faArrowTrendUp} size={12} /> </Table.Cell>  
-                  </Table.Row>
-                    {
-                        this.valuationList && this.valuationList.map((item, index) => {
-                          return (<Table.Row key={index}>
-                              <Table.Cell> {item.label}  <span className='desc'> {item.desc} </span>
-                              <Popup
-                                trigger={<FontAwesomeIcon icon={faInfoCircle} size={12} />}
-                                content={item.info} 
-                                className='infoIcon'
-                                position="top center"
-                              />
-                              </Table.Cell>
-                              {
-                                this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
-                                  return (<Table.Cell className = {this.isValueGood(item, tickerDataObj.data[item.key]) && 'upcolor' } > {roundToTwoDecimals(tickerDataObj.data[item.key])} </Table.Cell>)
-                                })
-                              }
-                          </Table.Row>)
-                          
-                        })
-                        
-                    }
-                     <Table.Row fullWidth className='sectionHeader'><Table.Cell  colSpan={(this.state.tickerData.length + 1) + ""}>Profitability <FontAwesomeIcon icon={faSackDollar} size={12} /> </Table.Cell> </Table.Row>
-
-                     {
-                        this.profitList && this.profitList.map((item, index) => {
-                          return (<Table.Row key={index}>
-                              <Table.Cell> {item.label} <span className='desc'> {item.desc}</span> 
-                                <Popup
-                                  trigger={<FontAwesomeIcon icon={faInfoCircle} size={12} />}
-                                  content={item.info} 
-                                  className='infoIcon'
-                                  position="top center"
-                                />
-                              </Table.Cell>
-                              {
-                                this.state.tickerData && this.state.tickerData.map((tickerDataObj, index) => {
-                                  return (<Table.Cell className = {this.isValueGood(item, tickerDataObj.data[item.key]) && 'upcolor' }  > {roundToTwoDecimals(tickerDataObj.data[item.key])} </Table.Cell>)
-                                })
-                              }
-                          </Table.Row>)
-                          
-                        })
-                        
-                    }
-
-                </Table.Body>
-              </Table>
-            </div>
+    renderChartsTab() {
+        return (
+          <div>
             <div className={this.state.incomeStmtdata && this.state.incomeStmtdata.length ? 'show' : 'hide'}>
               <ChartSection
                   label="Net Income Growth of Last 5 Years"
@@ -213,7 +120,48 @@ class HomePage extends React.Component {
                 />
                     
             </div>
+          </div>
+        )
+    }
+
+    renderAIRecommendations() {
+      return (
+        this.state.tickerData && this.state.tickerData.length ? <AIRecommendations inputTickers={this.inputArray}/> : null
+      )
+    }
+
+    renderMetrics() {
+      return (
+        <MetricsTable valuationList={this.valuationList} profitList={this.profitList} tickerData={this.state.tickerData} />
+      );
+    }
+
+    render() {
+      const panes = [
+        { menuItem: 'Charts', render: () => <Tab.Pane className="customTabPane">{this.renderChartsTab()}</Tab.Pane> },
+        { menuItem: 'AI Recommendation', render: () => <Tab.Pane className="customTabPane">{this.renderAIRecommendations()}</Tab.Pane> },
+        { menuItem: 'Metrics', render: () => <Tab.Pane className="customTabPane">{this.renderMetrics()}</Tab.Pane> },
+      ];
+      return  (
+        <div className='home'> 
+          <div className="header">
+            <nav class="navbar">
+              <div class="logo">
+                <img src="logo.png" alt="Logo" />
+              </div>
+              <ul class="nav-links">
+                <li><a href="#home"></a></li>
+              </ul>
+            </nav>
+          </div>
+          <div className="content">
+            <Header as='h1' className='pageHeader'> Search Engine of Investing </Header>
+            <div className='searchSection'>
+              <MultiSelect setMultiSelectValues={this.handleSelectChange} multiSelectInput={this.state.multiSelectInput}/>
+              <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
             </div>
+            {this.state.tickerData.length > 0 && <Tab panes={panes} />}
+          </div>
           <div>
             <Footer />
           </div> 

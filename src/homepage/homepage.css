@@ -4,6 +4,7 @@ body {
     font-size: 18px;
     margin: 10px;
     border-color: white;
+    /* color: white; */
 }
 
 .home {
@@ -67,20 +68,6 @@ body {
     text-align: center;
 }
 
-/* Colors */
-.upcolor {
-    background-color: #5AC3BF;
-}
-
-.downcolor {
-    background-color: #ff2a26;
-}
-
-/* Miscellaneous Styles */
-.infoIcon {
-    margin-left: 8px;
-}
-
 .updatetime {
     font-size: 14px;
     float: right;
@@ -93,17 +80,6 @@ body {
 
 .tickerInput {
     width: 300px;
-}
-
-.sectionHeader {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    height: 25px;
-    line-height: 25px;
-    background: #8884d8;
-    color: white;
-    font-style: italic;
 }
 
 .pageHeader {
@@ -131,17 +107,6 @@ body {
     border: 1px solid white;
 }
 
-/* Table */
-.table {
-    margin: 10px 0 !important;
-}
-
-/* Text Styles */
-.desc {
-    color: green;
-    font-size: 12px;
-}
-
 /* Visibility Helpers */
 .hide {
     display: none;
@@ -149,6 +114,16 @@ body {
 
 .show {
     display: block;
+}
+
+.customTabPane {
+    color: white;
+    font-weight: bold;
+}
+
+.ui.tabular.menu .item {
+    color: white;
+    font-weight: bold;
 }
 
 /* Responsive Design */
