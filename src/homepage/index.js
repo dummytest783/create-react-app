@@ -188,7 +188,7 @@ class HomePage extends React.Component {
     renderAIRecommendations() {
       console.log('AIRecommendationsData loader:', this.state.AIRecommendationsData, this.state.aiLoader)
       return (
-        this.state.aiLoader ? <Loader /> : <AIRecommendations AIRecommendationsData={ this.state.AIRecommendationsData }/>
+        this.state.aiLoader ? <Loader message="Your AI agent is working...." /> : <AIRecommendations AIRecommendationsData={ this.state.AIRecommendationsData }/>
       )
     }
 
