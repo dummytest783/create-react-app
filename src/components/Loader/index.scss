@@ -1,0 +1,38 @@
+/* Loader container to center the loader */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Adjust height based on your component */
+    text-align: center;
+  }
+  
+  /* Spinner animation */
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #007bff; /* Primary color for the spinner */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+  
+  /* Text below the loader */
+  .loader-text {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  /* Keyframes for spinner rotation */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

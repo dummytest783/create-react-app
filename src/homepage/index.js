@@ -11,6 +11,7 @@ import AIRecommendations from '../components/AIRecommendations'
 import appkey from '../config/appkey.json'
 import api from '../config/api.json'
 import MetricsTable from '../components/MetricsTable'
+import Loader from '../components/Loader'
 
 
 class HomePage extends React.Component {
@@ -32,7 +33,9 @@ class HomePage extends React.Component {
           inputTicker :'',
           tickerData: [],
           incomeStmtdata: [],
-          multiSelectInput: []
+          multiSelectInput: [],
+          AIRecommendationsData: null,
+          aiLoader: false
         };
     }
 
@@ -86,6 +89,63 @@ class HomePage extends React.Component {
       });
     }
 
+    getAIRecommendationsData(inputArray) {
+      console.log('state getAIRecommendationsData :', this.state);
+      this.setState({ aiLoader: true });
+      const tickersQuery = inputArray.join(",");
+      fetch(`https://python-web-service-dqjy.onrender.com/analyze-stocks?tickers=${tickersQuery}`)
+        .then((response) => response.json())
+        .then((data) => {;
+          const messages = data.messages;
+    
+          const toolCallMapping = messages
+            .find((msg) => msg.role === "assistant" && msg.tool_calls)
+            ?.tool_calls.reduce((acc, call) => {
+              const functionName = call.function.name;
+              acc[call.id] = functionName;
+              return acc;
+            }, {});
+    
+          const recommendationData = [];
+          const fundamentalData = [];
+          const AIresponse = {};
+    
+          messages
+            .filter((msg) => msg.role === "tool")
+            .forEach((toolMsg) => {
+              const functionName = toolCallMapping?.[toolMsg.tool_call_id];
+              const parsedContent = JSON.parse(toolMsg.content);
+    
+              if (functionName === "get_analyst_recommendations") {
+                const tickerIndex = recommendationData.length; // Use the index to map to inputTickers
+                const symbol = inputArray[tickerIndex];
+                if (symbol) {
+                  recommendationData.push({ symbol, ...parsedContent["0"] });
+                }
+              }
+    
+              if (functionName === "get_stock_fundamentals") {
+                fundamentalData.push(parsedContent);
+              }
+            });
+    
+          const assistantMessage = messages.find((msg) => msg.role === "assistant" && msg.content);
+          if (assistantMessage) {
+            AIresponse.summary = assistantMessage.content;
+          }
+    
+          AIresponse.recommendations = recommendationData;
+          AIresponse.fundamentals = fundamentalData;
+          console.log('AIresponse:', AIresponse)
+          this.setState({AIRecommendationsData: AIresponse});
+          this.setState({aiLoader: false});
+        })
+        .catch((error) => {
+          this.setState({ aiLoader: false });
+          console.error("Error fetching data:", error);
+        });
+    }
+
     // handleTickerChange (e) {
     //   this.setState({inputTicker: e.target.value})
     // }
@@ -96,6 +156,7 @@ class HomePage extends React.Component {
       this.setState({'inputTicker': ''})
       this.getTickerData(this.inputArray)
       this.getIncomeStmtData(this.inputArray)
+      this.getAIRecommendationsData(this.inputArray)
 
     }
 
@@ -125,8 +186,9 @@ class HomePage extends React.Component {
     }
 
     renderAIRecommendations() {
+      console.log('AIRecommendationsData loader:', this.state.AIRecommendationsData, this.state.aiLoader)
       return (
-        this.state.tickerData && this.state.tickerData.length ? <AIRecommendations inputTickers={this.inputArray}/> : null
+        this.state.aiLoader ? <Loader /> : <AIRecommendations AIRecommendationsData={ this.state.AIRecommendationsData }/>
       )
     }
 
