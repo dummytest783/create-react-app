@@ -92,53 +92,15 @@ class HomePage extends React.Component {
     getAIRecommendationsData(inputArray) {
       console.log('state getAIRecommendationsData :', this.state);
       this.setState({ aiLoader: true });
-      const tickersQuery = inputArray.join(",");
-      fetch(`https://python-web-service-dqjy.onrender.com/analyze-stocks?tickers=${tickersQuery}`)
+      const tickerQuery = inputArray.join(",");
+      fetch(`https://stockagent.onrender.com/analyze-stocks?tickers=${tickerQuery}`)
         .then((response) => response.json())
-        .then((data) => {;
-          const messages = data.messages;
-    
-          const toolCallMapping = messages
-            .find((msg) => msg.role === "assistant" && msg.tool_calls)
-            ?.tool_calls.reduce((acc, call) => {
-              const functionName = call.function.name;
-              acc[call.id] = functionName;
-              return acc;
-            }, {});
-    
-          const recommendationData = [];
-          const fundamentalData = [];
-          const AIresponse = {};
-    
-          messages
-            .filter((msg) => msg.role === "tool")
-            .forEach((toolMsg) => {
-              const functionName = toolCallMapping?.[toolMsg.tool_call_id];
-              const parsedContent = JSON.parse(toolMsg.content);
-    
-              if (functionName === "get_analyst_recommendations") {
-                const tickerIndex = recommendationData.length; // Use the index to map to inputTickers
-                const symbol = inputArray[tickerIndex];
-                if (symbol) {
-                  recommendationData.push({ symbol, ...parsedContent["0"] });
-                }
-              }
-    
-              if (functionName === "get_stock_fundamentals") {
-                fundamentalData.push(parsedContent);
-              }
-            });
-    
-          const assistantMessage = messages.find((msg) => msg.role === "assistant" && msg.content);
-          if (assistantMessage) {
-            AIresponse.summary = assistantMessage.content;
-          }
-    
-          AIresponse.recommendations = recommendationData;
-          AIresponse.fundamentals = fundamentalData;
-          console.log('AIresponse:', AIresponse)
-          this.setState({AIRecommendationsData: AIresponse});
-          this.setState({aiLoader: false});
+        .then((data) => {
+          console.log('AI response data:', data);
+          this.setState({
+            AIRecommendationsData: data,
+            aiLoader: false
+          });
         })
         .catch((error) => {
           this.setState({ aiLoader: false });
