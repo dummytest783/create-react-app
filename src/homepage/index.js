@@ -93,7 +93,13 @@ class HomePage extends React.Component {
       console.log('state getAIRecommendationsData :', this.state);
       this.setState({ aiLoader: true });
       const tickerQuery = inputArray.join(",");
-      fetch(`https://stockagent.onrender.com/analyze-stocks?tickers=${tickerQuery}`)
+      
+      // Determine base URL based on environment variable
+      const baseUrl = process.env.REACT_APP_USE_LOCAL_API === 'true'
+        ? 'http://127.0.0.1:8000'
+        : 'https://stockagent.onrender.com';
+      
+      fetch(`${baseUrl}/analyze-stocks?tickers=${tickerQuery}`)
         .then((response) => response.json())
         .then((data) => {
           console.log('AI response data:', data);
