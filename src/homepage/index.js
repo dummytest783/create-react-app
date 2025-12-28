@@ -18,15 +18,15 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.valuationList = [
-          {key: 'peRatioTTM', label:'PE', better: 'lower', desc: 'Price/Earning', info: 'P/E ratio = Market Price of Stock / Earnings per Share (EPS)'},
-          {key: 'pegRatioTTM', label:'PEG', better: 'lower', desc: 'P/E Growth (less than 1 is undervalued)', info: 'PEG ratio = P/E ratio / Expected Earnings Growth Rate.'},
-          {key: 'returnOnEquityTTM', label:'ROE', better: 'higher', desc: 'Return on Equity', info: 'ROE = (Net Income) / Weighted Average Number of Outstanding Shares'},
-          {key: 'dividendYielPercentageTTM', label:'DividendYield', better: 'higher', desc: 'Dividend you earn on every 1$', info: 'Dividend Yield = (Annual Dividends per Share / Current Market Price per Share) x 100'}
+          {key: 'priceToEarningsRatioTTM', label:'PE', better: 'lower', desc: 'Price/Earning', info: 'P/E ratio = Market Price of Stock / Earnings per Share (EPS)'},
+          {key: 'priceToEarningsGrowthRatioTTM', label:'PEG', better: 'lower', desc: 'P/E Growth (less than 1 is undervalued)', info: 'PEG ratio = P/E ratio / Expected Earnings Growth Rate.'},
+          {key: 'priceToFreeCashFlowRatioTTM', label:'P/FCF', better: 'lower', desc: 'Price to Free Cash Flow', info: 'P/FCF ratio = Market Price / Free Cash Flow per Share'},
+          {key: 'freeCashFlowPerShareTTM', label:'FCF/Share', better: 'higher', desc: 'Free Cash Flow per Share', info: 'FCF per Share = Free Cash Flow / Number of Outstanding Shares'},
+          {key: 'dividendYieldTTM', label:'DividendYield', better: 'higher', desc: 'Dividend you earn on every 1$', info: 'Dividend Yield = (Annual Dividends per Share / Current Market Price per Share) x 100', multiplier: 100}
         ];
         this.profitList = [
-            {key: 'netProfitMarginTTM', label:'ProfitMargin', better: 'higher', desc: 'Profit Margin', info: 'Profit Margin = (Net Income / Total Revenue) x 100'},
-            {key: 'returnOnAssetsTTM',label:'ReturnOnAssets', better: 'higher', desc: 'Return on Asset Last 12 months', info: 'ROA TTM = (Net Income TTM / Average Total Assets TTM) x 100'},
-            {key: 'returnOnEquityTTM',label:'ReturnOnEquity', better: 'higher', desc: 'Return on Equity Last 12 months', info: 'ROE TTM = (Net Income TTM / Average Shareholders Equity TTM) x 100'}
+            {key: 'netProfitMarginTTM',label:'NetProfitMargin', better: 'higher', desc: 'Net Profit Margin Last 12 months', info: 'Net Profit Margin = (Net Income / Revenue) x 100', multiplier: 100},
+            {key: 'debtServiceCoverageRatioTTM', label:'DebtServiceCoverage', better: 'higher', desc: 'Debt Service Coverage Ratio', info: 'Debt Service Coverage Ratio = Total Cash Produced / Debt Payment (Less than 2 is risky)'}
         ];
 
         this.state = {
@@ -46,15 +46,15 @@ class HomePage extends React.Component {
     getTickerData(inputArray) {
       const apikey = appkey.fmpKey_P;
       const requestTickerPromises = inputArray.map((ticker) => {
-        const apiUrl = `${api.fmp}/api/v3/ratios-ttm/${ticker}?apikey=${apikey}`;
-        
+        const apiUrl = `${api.fmp}/stable/ratios-ttm?symbol=${ticker}&apikey=${apikey}`;
+
         // Return the promise along with the ticker identifier
         return axios.get(apiUrl).then((response) => ({
           Symbol: ticker,
           data: response.data && response.data[0],
         }));
       });
-    
+
       // Resolve all promises and maintain the association with the ticker
       Promise.all(requestTickerPromises)
         .then((values) => {
@@ -71,7 +71,7 @@ class HomePage extends React.Component {
       const apikey = appkey.fmpKey_P;
       const requestPromises = [];
       for (const ticker of inputArray) {
-        const apiUrl = `${api.fmp}${api.fmpIncomeStatementApi}/${ticker}?period=annual&apikey=${apikey}&limit=5`;
+        const apiUrl = `${api.fmp}${api.fmpIncomeStatementApi}?symbol=${ticker}&period=annual&apikey=${apikey}&limit=5`;
         requestPromises.push(axios.get(apiUrl))
       }
 
@@ -84,7 +84,7 @@ class HomePage extends React.Component {
             value: data
           };
         });
-        
+
         this.setState({incomeStmtdata: incomeStmtDataArr})
       });
     }

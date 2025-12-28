@@ -9,7 +9,10 @@ const MetricsTable = ({ valuationList, profitList, tickerData }) => {
   
   // Function to check if the value is good
   const isValueGood = (item, value) => {
-    const allNumbers = tickerData.map((stock) => stock.data && parseFloat(stock.data[item.key]));
+    const allNumbers = tickerData.map((stock) => {
+      const rawValue = stock.data && parseFloat(stock.data[item.key]);
+      return item.multiplier ? rawValue * item.multiplier : rawValue;
+    });
     if (item.better === 'lower') {
       return Math.min(...allNumbers) === parseFloat(value);
     } else if (item.better === 'higher') {
@@ -31,11 +34,17 @@ const MetricsTable = ({ valuationList, profitList, tickerData }) => {
           <Table.Cell>{item.label} <span className="desc">{item.desc}</span>
             <Popup trigger={<FontAwesomeIcon icon={faInfoCircle} size={12} />} content={item.info} className="infoIcon" position="top center" />
           </Table.Cell>
-          {tickerData.map((data, idx) => (
-            <Table.Cell key={idx} className={isValueGood(item, data.data[item.key]) ? 'upcolor' : ''}>
-              {roundToTwoDecimals(data.data[item.key] || 'N/A')}
-            </Table.Cell>
-          ))}
+          {tickerData.map((data, idx) => {
+            const rawValue = data.data[item.key];
+            const displayValue = item.multiplier ? rawValue * item.multiplier : rawValue;
+            const formattedValue = displayValue === 'N/A' ? 'N/A' : roundToTwoDecimals(displayValue);
+            const finalDisplay = item.multiplier && formattedValue !== 'N/A' ? `${formattedValue}%` : formattedValue;
+            return (
+              <Table.Cell key={idx} className={isValueGood(item, displayValue) ? 'upcolor' : ''}>
+                {finalDisplay}
+              </Table.Cell>
+            );
+          })}
         </Table.Row>
       ))}
       <Table.Row fullWidth className="sectionHeader">
@@ -46,11 +55,17 @@ const MetricsTable = ({ valuationList, profitList, tickerData }) => {
           <Table.Cell>{item.label} <span className="desc">{item.desc}</span>
             <Popup trigger={<FontAwesomeIcon icon={faInfoCircle} size={12} />} content={item.info} className="infoIcon" position="top center" />
           </Table.Cell>
-          {tickerData.map((data, idx) => (
-            <Table.Cell key={idx} className={isValueGood(item, data.data[item.key]) ? 'upcolor' : ''}>
-              {roundToTwoDecimals(data.data[item.key] || 'N/A')}
-            </Table.Cell>
-          ))}
+          {tickerData.map((data, idx) => {
+            const rawValue = data.data[item.key];
+            const displayValue = item.multiplier ? rawValue * item.multiplier : rawValue;
+            const formattedValue = displayValue === 'N/A' ? 'N/A' : roundToTwoDecimals(displayValue);
+            const finalDisplay = item.multiplier && formattedValue !== 'N/A' ? `${formattedValue}%` : formattedValue;
+            return (
+              <Table.Cell key={idx} className={isValueGood(item, displayValue) ? 'upcolor' : ''}>
+                {finalDisplay}
+              </Table.Cell>
+            );
+          })}
         </Table.Row>
       ))}
     </Table.Body>

@@ -23,16 +23,44 @@
 
     /* Colors */
     .upcolor {
-        background-color: #5AC3BF;
+        background-color: #5AC3BF !important;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .upcolor:hover {
+        background-color: #4DB8B4 !important;
+        transform: scale(1.02);
     }
 
     .downcolor {
-        background-color: #ff2a26;
+        background-color: #ff2a26 !important;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .downcolor:hover {
+        background-color: #e02522 !important;
+        transform: scale(1.02);
     }
 
     /* Table */
     .table {
         margin: 10px 0 !important;
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(136, 132, 216, 0.08) !important;
+        }
+
+        tbody tr td {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover td:not(.upcolor):not(.downcolor) {
+            background-color: rgba(136, 132, 216, 0.08) !important;
+        }
     }
 
     /* Visibility Helpers */

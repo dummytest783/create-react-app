@@ -14,7 +14,7 @@ const ChartSection = ({ label, dataKey, incomeStmtData }) => {
       {incomeStmtData.map((data) => {
         const dataList = data.value
           ? data.value.map((annualReportObj) => ({
-              date: annualReportObj.calendarYear,
+              date: annualReportObj.fiscalYear,
               value: annualReportObj[dataKey],
             }))
           : [];

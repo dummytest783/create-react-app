@@ -57,7 +57,7 @@ class HomePage extends React.Component {
     getTickerData(inputArray) {
       const apikey = appkey.fmpKey_P;
       const requestTickerPromises = inputArray.map((ticker) => {
-        const apiUrl = `${api.fmp}/api/v3/ratios-ttm/${ticker}?apikey=${apikey}`;
+        const apiUrl = `${api.fmp}/stable/ratios-ttm?symbol=${ticker}&apikey=${apikey}`;
         
         // Return the promise along with the ticker identifier
         return axios.get(apiUrl).then((response) => ({
@@ -82,7 +82,7 @@ class HomePage extends React.Component {
       const apikey = appkey.fmpKey_P;
       const requestPromises = [];
       for (const ticker of inputArray) {
-        const apiUrl = `${api.fmp}${api.fmpIncomeStatementApi}/${ticker}?period=annual&apikey=${apikey}&limit=5`;
+        const apiUrl = `${api.fmp}${api.fmpIncomeStatementApi}?period=annual&apikey=${apikey}&limit=5&symbol=${ticker}`;
         requestPromises.push(axios.get(apiUrl))
       }
 

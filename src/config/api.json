@@ -2,6 +2,6 @@
     "polygon": "https://api.polygon.io",
     "polygonSearchTickerApi": "/v3/reference/tickers",
     "fmp": "https://financialmodelingprep.com",
-    "fmpSearchTickerApi": "/api/v3/search",
-    "fmpIncomeStatementApi": "/api/v3/income-statement"
+    "fmpSearchTickerApi": "/stable/search-name",
+    "fmpIncomeStatementApi": "/stable/income-statement"
 }
