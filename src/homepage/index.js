@@ -8,6 +8,7 @@ import Footer from '../components/Footer'
 import MultiSelect from '../components/MultiSelect'
 import ChartSection from '../components/ChartSection'
 import AIRecommendations from '../components/AIRecommendations'
+import IndustryGrowth from '../components/IndustryGrowth'
 import appkey from '../config/appkey.json'
 import api from '../config/api.json'
 import MetricsTable from '../components/MetricsTable'
@@ -35,7 +36,8 @@ class HomePage extends React.Component {
           incomeStmtdata: [],
           multiSelectInput: [],
           AIRecommendationsData: null,
-          aiLoader: false
+          aiLoader: false,
+          showIndustryGrowth: true
         };
     }
 
@@ -121,11 +123,21 @@ class HomePage extends React.Component {
     searchClick() {
       this.inputArray = this.state.multiSelectInput.map(tickerObj => tickerObj.value)
       console.log('inputArray:', this.inputArray)
-      this.setState({'inputTicker': ''})
+      this.setState({'inputTicker': '', showIndustryGrowth: false})
       this.getTickerData(this.inputArray)
       this.getIncomeStmtData(this.inputArray)
       this.getAIRecommendationsData(this.inputArray)
 
+    }
+
+    handleLogoClick = () => {
+      this.setState({
+        showIndustryGrowth: true,
+        multiSelectInput: [],
+        tickerData: [],
+        incomeStmtdata: [],
+        AIRecommendationsData: null
+      });
     }
 
     renderChartsTab() {
@@ -175,11 +187,11 @@ class HomePage extends React.Component {
       return  (
         <div className='home'> 
           <div className="header">
-            <nav class="navbar">
-              <div class="logo">
+            <nav className="navbar">
+              <div className="logo" onClick={this.handleLogoClick} style={{ cursor: 'pointer' }}>
                 <img src="logo.png" alt="Logo" />
               </div>
-              <ul class="nav-links">
+              <ul className="nav-links">
                 <li><a href="#home"></a></li>
               </ul>
             </nav>
@@ -190,6 +202,7 @@ class HomePage extends React.Component {
               <MultiSelect setMultiSelectValues={this.handleSelectChange} multiSelectInput={this.state.multiSelectInput}/>
               <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
             </div>
+            {this.state.showIndustryGrowth && <IndustryGrowth />}
             {this.state.tickerData.length > 0 && <Tab panes={panes} />}
           </div>
           <div>

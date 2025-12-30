@@ -1,0 +1,397 @@
+/* Industry Growth Component Styles */
+
+.industry-growth-container {
+  margin: 2rem auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+}
+
+.industry-growth-header {
+  color: white !important;
+  text-align: center;
+  margin-bottom: 2rem !important;
+
+  .header {
+    color: white !important;
+  }
+
+  .sub.header {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+  }
+
+  i.icon {
+    color: #5AC3BF !important;
+  }
+}
+
+/* Loading and Error States */
+.industry-growth-loader,
+.industry-growth-error {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: white;
+
+  i.icon {
+    color: #5AC3BF;
+  }
+
+  p {
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Grid Layout */
+.industries-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Industry Card */
+.industry-card {
+  background: linear-gradient(135deg, rgba(136, 132, 216, 0.15), rgba(90, 195, 191, 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    border-color: rgba(90, 195, 191, 0.4);
+    box-shadow: 0 8px 24px rgba(90, 195, 191, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+/* Industry Header */
+.industry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &:focus {
+    outline: 2px solid #5AC3BF;
+    outline-offset: -2px;
+  }
+}
+
+.industry-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.industry-rank {
+  font-size: 1.8rem;
+  min-width: 2.5rem;
+  text-align: center;
+  color: white;
+}
+
+.industry-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.industry-name {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.industry-score {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.industry-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  i.icon {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 !important;
+  }
+}
+
+.industry-growth {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  min-width: 100px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Growth Color Coding */
+.growth-exceptional {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.growth-high {
+  background: linear-gradient(135deg, #5AC3BF, #3da39f);
+  color: white;
+  box-shadow: 0 2px 8px rgba(90, 195, 191, 0.3);
+}
+
+.growth-medium {
+  background: linear-gradient(135deg, #8884d8, #6b68c4);
+  color: white;
+  box-shadow: 0 2px 8px rgba(136, 132, 216, 0.3);
+}
+
+.growth-low {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Companies List */
+.companies-list {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+.companies-header {
+  display: grid;
+  grid-template-columns: 3rem 1fr 6rem 12rem;
+  gap: 1rem;
+  padding: 1rem 1.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.company-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 6rem 12rem;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s ease;
+  color: white;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.company-rank {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.company-main {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.company-symbol {
+  color: #5AC3BF;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-family: 'Courier New', monospace;
+}
+
+.company-name {
+  color: white;
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.company-growth {
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.4rem 0.75rem;
+  border-radius: 16px;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 85px;
+  display: inline-block;
+}
+
+.company-revenue {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: white;
+}
+
+.revenue-line {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.revenue-year {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem;
+}
+
+.revenue-value {
+  color: white;
+  font-weight: 600;
+}
+
+.revenue-highlight {
+  color: #5AC3BF;
+}
+
+.revenue-arrow {
+  color: rgba(255, 255, 255, 0.3) !important;
+  font-size: 0.8rem !important;
+}
+
+/* Footer */
+.industry-growth-footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  i.icon {
+    color: rgba(255, 255, 255, 0.5) !important;
+    margin: 0 !important;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .industries-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .industry-header {
+    padding: 1rem;
+  }
+
+  .industry-header-right {
+    gap: 0.5rem;
+  }
+
+  .industry-growth {
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .companies-header {
+    display: none; // Hide header on mobile for cleaner look
+  }
+
+  .company-row {
+    grid-template-columns: 2rem 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    row-gap: 0.5rem;
+  }
+
+  .company-rank {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  .company-info {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .company-growth {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    font-size: 0.9rem;
+  }
+
+  .company-revenue {
+    grid-column: 1 / 3;
+    grid-row: 3;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.8rem;
+  }
+
+  .industry-name {
+    font-size: 1rem;
+  }
+
+  .industry-rank {
+    font-size: 1.5rem;
+    min-width: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .industry-growth-container {
+    padding: 0 0.5rem;
+  }
+
+  .company-name {
+    font-size: 0.85rem;
+  }
+
+  .revenue-value {
+    font-size: 0.75rem;
+  }
+}
