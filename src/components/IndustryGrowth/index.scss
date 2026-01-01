@@ -159,12 +159,12 @@
 }
 
 .industry-growth {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.35rem 0.65rem;
+  border-radius: 16px;
   white-space: nowrap;
-  min-width: 100px;
+  min-width: 85px;
   text-align: center;
   display: inline-block;
 }
@@ -334,22 +334,30 @@
   font-size: 0.8rem !important;
 }
 
+/* Section Divider */
+.section-divider {
+  margin: 3rem auto;
+  max-width: 1200px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Footer */
 .industry-growth-footer {
-  text-align: center;
+  text-align: right;
   margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.5);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 0.5rem;
 
   i.icon {
     color: rgba(255, 255, 255, 0.5) !important;
     margin: 0 !important;
+    font-size: 0.75rem !important;
   }
 }
 
@@ -423,9 +431,9 @@
   }
 
   .industry-growth {
-    font-size: 0.9rem;
-    padding: 0.35rem 0.65rem;
-    min-width: 90px;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 80px;
   }
 
   .companies-header {

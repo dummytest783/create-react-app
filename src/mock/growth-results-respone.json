@@ -1,0 +1,318 @@
+{
+    "analysis_run_id":"052c9725-19aa-4a12-ad48-e558d8a87aa8",
+    "calculated_at":"2025-12-28T21:21:12.556069",
+    "config":{
+       "top_companies_per_industry":5,
+       "top_industries_to_display":6
+    },
+    "industries":[
+       {
+          "rank":1,
+          "industry_name":"Software - Application",
+          "industry_growth_score":55.7,
+          "companies":[
+             {
+                "rank":1,
+                "symbol":"CLSK",
+                "company_name":"CleanSpark, Inc.",
+                "current_growth_pct":102.21,
+                "revenue_y2":378968000,
+                "revenue_y3":766314000,
+                "fiscal_year_y2":"2024",
+                "fiscal_year_y3":"2025"
+             },
+             {
+                "rank":2,
+                "symbol":"IDCC",
+                "company_name":"InterDigital, Inc.",
+                "current_growth_pct":58.03,
+                "revenue_y2":549588000,
+                "revenue_y3":868516000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":3,
+                "symbol":"APP",
+                "company_name":"AppLovin Corporation",
+                "current_growth_pct":43.44,
+                "revenue_y2":3283087000,
+                "revenue_y3":4709248000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":4,
+                "symbol":"DUOL",
+                "company_name":"Duolingo, Inc.",
+                "current_growth_pct":40.84,
+                "revenue_y2":531109000,
+                "revenue_y3":748024000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":5,
+                "symbol":"DAVE",
+                "company_name":"Dave Inc.",
+                "current_growth_pct":33.96,
+                "revenue_y2":259093000,
+                "revenue_y3":347076000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             }
+          ]
+       },
+       {
+          "rank":2,
+          "industry_name":"Semiconductors",
+          "industry_growth_score":44.04,
+          "companies":[
+             {
+                "rank":1,
+                "symbol":"NVDA",
+                "company_name":"NVIDIA Corporation",
+                "current_growth_pct":114.2,
+                "revenue_y2":60922000000,
+                "revenue_y3":130497000000,
+                "fiscal_year_y2":"2024",
+                "fiscal_year_y3":"2025"
+             },
+             {
+                "rank":2,
+                "symbol":"ACMR",
+                "company_name":"ACM Research, Inc.",
+                "current_growth_pct":40.23,
+                "revenue_y2":557723000,
+                "revenue_y3":782118000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":3,
+                "symbol":"AVGO",
+                "company_name":"Broadcom Inc.",
+                "current_growth_pct":23.87,
+                "revenue_y2":51574000000,
+                "revenue_y3":63887000000,
+                "fiscal_year_y2":"2024",
+                "fiscal_year_y3":"2025"
+             },
+             {
+                "rank":4,
+                "symbol":"MPWR",
+                "company_name":"Monolithic Power Systems, Inc.",
+                "current_growth_pct":21.2,
+                "revenue_y2":1821072000,
+                "revenue_y3":2207100000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":5,
+                "symbol":"RMBS",
+                "company_name":"Rambus Inc.",
+                "current_growth_pct":20.71,
+                "revenue_y2":461117000,
+                "revenue_y3":556624000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             }
+          ]
+       },
+       {
+          "rank":3,
+          "industry_name":"Information Technology Services",
+          "industry_growth_score":41.67,
+          "companies":[
+             {
+                "rank":1,
+                "symbol":"INOD",
+                "company_name":"Innodata Inc.",
+                "current_growth_pct":96.44,
+                "revenue_y2":86775000,
+                "revenue_y3":170461000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":2,
+                "symbol":"PAY",
+                "company_name":"Paymentus Holdings, Inc.",
+                "current_growth_pct":41.86,
+                "revenue_y2":614490000,
+                "revenue_y3":871745000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":3,
+                "symbol":"CNXC",
+                "company_name":"Concentrix Corporation",
+                "current_growth_pct":35.2,
+                "revenue_y2":7114706000,
+                "revenue_y3":9618900000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":4,
+                "symbol":"FLYW",
+                "company_name":"Flywire Corporation",
+                "current_growth_pct":22.09,
+                "revenue_y2":403094000,
+                "revenue_y3":492144000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":5,
+                "symbol":"EXLS",
+                "company_name":"ExlService Holdings, Inc.",
+                "current_growth_pct":12.74,
+                "revenue_y2":1630668000,
+                "revenue_y3":1838372000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             }
+          ]
+       },
+       {
+          "rank":4,
+          "industry_name":"Aerospace & Defense",
+          "industry_growth_score":31.94,
+          "companies":[
+             {
+                "rank":1,
+                "symbol":"AMTM",
+                "company_name":"Amentum Holdings, Inc.",
+                "current_growth_pct":71.59,
+                "revenue_y2":8388000000,
+                "revenue_y3":14393000000,
+                "fiscal_year_y2":"2024",
+                "fiscal_year_y3":"2025"
+             },
+             {
+                "rank":2,
+                "symbol":"AXON",
+                "company_name":"Axon Enterprise, Inc.",
+                "current_growth_pct":33.44,
+                "revenue_y2":1560699000,
+                "revenue_y3":2082526000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":3,
+                "symbol":"AIR",
+                "company_name":"AAR Corp.",
+                "current_growth_pct":19.91,
+                "revenue_y2":2318900000,
+                "revenue_y3":2780500000,
+                "fiscal_year_y2":"2024",
+                "fiscal_year_y3":"2025"
+             },
+             {
+                "rank":4,
+                "symbol":"CDRE",
+                "company_name":"Cadre Holdings, Inc.",
+                "current_growth_pct":17.62,
+                "revenue_y2":482532000,
+                "revenue_y3":567561000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":5,
+                "symbol":"RTX",
+                "company_name":"RTX Corporation",
+                "current_growth_pct":17.15,
+                "revenue_y2":68920000000,
+                "revenue_y3":80738000000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             }
+          ]
+       },
+       {
+          "rank":5,
+          "industry_name":"Software - Infrastructure",
+          "industry_growth_score":29.5,
+          "companies":[
+             {
+                "rank":1,
+                "symbol":"AFRM",
+                "company_name":"Affirm Holdings, Inc.",
+                "current_growth_pct":38.8,
+                "revenue_y2":2322999000,
+                "revenue_y3":3224412000,
+                "fiscal_year_y2":"2024",
+                "fiscal_year_y3":"2025"
+             },
+             {
+                "rank":2,
+                "symbol":"FOUR",
+                "company_name":"Shift4 Payments, Inc.",
+                "current_growth_pct":29.86,
+                "revenue_y2":2564800000,
+                "revenue_y3":3330600000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":3,
+                "symbol":"PLTR",
+                "company_name":"Palantir Technologies Inc.",
+                "current_growth_pct":28.79,
+                "revenue_y2":2225012000,
+                "revenue_y3":2865507000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":4,
+                "symbol":"TOST",
+                "company_name":"Toast, Inc.",
+                "current_growth_pct":28.33,
+                "revenue_y2":3865000000,
+                "revenue_y3":4960000000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             },
+             {
+                "rank":5,
+                "symbol":"EVTC",
+                "company_name":"EVERTEC, Inc.",
+                "current_growth_pct":21.7,
+                "revenue_y2":694709000,
+                "revenue_y3":845486000,
+                "fiscal_year_y2":"2023",
+                "fiscal_year_y3":"2024"
+             }
+          ]
+       }
+    ],
+    "upcoming_earnings":{
+       "date_range":{
+          "start_date":"2026-01-01",
+          "end_date":"2026-01-08"
+       },
+       "total_companies":1,
+       "earnings_calendar":[
+          {
+             "earnings_date":"2026-01-06",
+             "symbol":"AIR",
+             "company_name":"AAR Corp.",
+             "industry_name":"Aerospace & Defense",
+             "industry_rank":4,
+             "company_rank_in_industry":3,
+             "current_growth_pct":19.91,
+             "eps_actual":null,
+             "eps_estimated":1.02,
+             "revenue_actual":null,
+             "revenue_estimated":760950000,
+             "last_updated":"2025-12-29"
+          }
+       ]
+    }
+ }

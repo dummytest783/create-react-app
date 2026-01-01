@@ -4,6 +4,7 @@ import { Header, Button, Tab, Menu} from 'semantic-ui-react';
 
 import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
+import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import MultiSelect from '../components/MultiSelect'
 import ChartSection from '../components/ChartSection'
@@ -236,17 +237,8 @@ class HomePage extends React.Component {
         },
       ];
       return  (
-        <div className='home'> 
-          <div className="header">
-            <nav className="navbar">
-              <div className="logo" onClick={this.handleLogoClick} style={{ cursor: 'pointer' }}>
-                <img src="logo.png" alt="Logo" />
-              </div>
-              <ul className="nav-links">
-                <li><a href="#home"></a></li>
-              </ul>
-            </nav>
-          </div>
+        <div className='home'>
+          <Navbar onLogoClick={this.handleLogoClick} isPaidUser={this.state.isPaidUser} />
           <div className="content">
             <Header as='h1' className='pageHeader'> Search Engine of Investing </Header>
             <div className='searchSection'>
@@ -258,7 +250,7 @@ class HomePage extends React.Component {
           </div>
           <div>
             <Footer />
-          </div> 
+          </div>
         </div>
       )
     }

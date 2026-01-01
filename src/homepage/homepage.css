@@ -13,50 +13,7 @@ body {
     height: 100vh;
 }
 
-/* Navbar Styles */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #2a1e4e; /* Match your site's theme */
-    color: #fff;
-    padding: 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.logo img {
-    height: 60px;
-    margin-right: 10px;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-links li {
-    margin: 0 15px;
-}
-
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #e0b1ff; /* A lighter shade for hover effect */
-}
+/* Old navbar styles removed - using new Navbar component */
 
 /* Content Area */
 .content {

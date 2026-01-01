@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Header, Icon, Loader } from 'semantic-ui-react';
+import { Icon, Loader } from 'semantic-ui-react';
 import api from '../../config/api.json';
+import UpcomingEarnings from '../UpcomingEarnings';
 import './index.scss';
 
 const IndustryGrowth = ({ onCompanyClick }) => {
@@ -21,7 +22,21 @@ const IndustryGrowth = ({ onCompanyClick }) => {
         ? api.stockAgent.local
         : api.stockAgent.production;
 
-      const response = await fetch(`${baseUrl}${api.stockAgent.growthResultsApi}?limit_industries=5&limit_companies=5`);
+      // Calculate date range for next 14 days
+      const today = new Date();
+      const futureDate = new Date();
+      futureDate.setDate(today.getDate() + 14);
+
+      const formatDate = (date) => {
+        return date.toISOString().split('T')[0];
+      };
+
+      const earningsFromDate = formatDate(today);
+      const earningsToDate = formatDate(futureDate);
+
+      const response = await fetch(
+        `${baseUrl}${api.stockAgent.growthResultsApi}?limit_industries=4&limit_companies=5&earnings_from_date=${earningsFromDate}&earnings_to_date=${earningsToDate}`
+      );
 
       if (!response.ok) {
         throw new Error('Failed to fetch growth data');
@@ -206,6 +221,16 @@ const IndustryGrowth = ({ onCompanyClick }) => {
           );
         })}
       </div>
+
+      <div className="section-divider"></div>
+
+      {/* Upcoming Earnings Section */}
+      {growthData.upcoming_earnings && (
+        <UpcomingEarnings
+          earningsData={growthData.upcoming_earnings}
+          onCompanyClick={onCompanyClick}
+        />
+      )}
 
       {growthData.calculated_at && (
         <div className="industry-growth-footer">
