@@ -31,6 +31,10 @@ class HomePage extends React.Component {
             {key: 'debtServiceCoverageRatioTTM', label:'DebtServiceCoverage', better: 'higher', desc: 'Debt Service Coverage Ratio', info: 'Debt Service Coverage Ratio = Total Cash Produced / Debt Payment (Less than 2 is risky)'}
         ];
 
+        // Check for URL parameter to enable paid features for testing
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPaidUserParam = urlParams.get('abdullah');
+
         this.state = {
           inputTicker :'',
           tickerData: [],
@@ -39,7 +43,7 @@ class HomePage extends React.Component {
           AIRecommendationsData: null,
           aiLoader: false,
           showIndustryGrowth: true,
-          isPaidUser: false // Set to true for paid users
+          isPaidUser: isPaidUserParam === 'true' // Check URL param, defaults to false
         };
     }
 
@@ -103,7 +107,10 @@ class HomePage extends React.Component {
         ? 'http://127.0.0.1:8000'
         : 'https://stockagent.onrender.com';
 
-      fetch(`${baseUrl}/analyze-stocks?tickers=${tickerQuery}&use_mock=true`)
+      // Only use mock data in local development
+      const useMockParam = process.env.NODE_ENV === 'development' ? '&use_mock=true' : '';
+
+      fetch(`${baseUrl}/analyze-stocks?tickers=${tickerQuery}${useMockParam}`)
         .then((response) => response.json())
         .then((data) => {
           console.log('AI response data:', data);
