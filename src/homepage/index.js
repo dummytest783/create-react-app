@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import { Header, Button, Tab} from 'semantic-ui-react';
+import { Header, Button, Tab, Menu} from 'semantic-ui-react';
 
 import 'semantic-ui-css/semantic.min.css'
 import './homepage.css'
@@ -9,6 +9,7 @@ import MultiSelect from '../components/MultiSelect'
 import ChartSection from '../components/ChartSection'
 import AIRecommendations from '../components/AIRecommendations'
 import IndustryGrowth from '../components/IndustryGrowth'
+import UpgradePrompt from '../components/UpgradePrompt'
 import appkey from '../config/appkey.json'
 import api from '../config/api.json'
 import MetricsTable from '../components/MetricsTable'
@@ -37,7 +38,8 @@ class HomePage extends React.Component {
           multiSelectInput: [],
           AIRecommendationsData: null,
           aiLoader: false,
-          showIndustryGrowth: true
+          showIndustryGrowth: true,
+          isPaidUser: false // Set to true for paid users
         };
     }
 
@@ -95,13 +97,13 @@ class HomePage extends React.Component {
       console.log('state getAIRecommendationsData :', this.state);
       this.setState({ aiLoader: true });
       const tickerQuery = inputArray.join(",");
-      
+
       // Determine base URL based on environment variable
       const baseUrl = process.env.REACT_APP_USE_LOCAL_API === 'true'
         ? 'http://127.0.0.1:8000'
         : 'https://stockagent.onrender.com';
-      
-      fetch(`${baseUrl}/analyze-stocks?tickers=${tickerQuery}`)
+
+      fetch(`${baseUrl}/analyze-stocks?tickers=${tickerQuery}&use_mock=true`)
         .then((response) => response.json())
         .then((data) => {
           console.log('AI response data:', data);
@@ -126,8 +128,11 @@ class HomePage extends React.Component {
       this.setState({'inputTicker': '', showIndustryGrowth: false})
       this.getTickerData(this.inputArray)
       this.getIncomeStmtData(this.inputArray)
-      this.getAIRecommendationsData(this.inputArray)
 
+      // Only call AI API for paid users
+      if (this.state.isPaidUser) {
+        this.getAIRecommendationsData(this.inputArray)
+      }
     }
 
     handleLogoClick = () => {
@@ -137,6 +142,29 @@ class HomePage extends React.Component {
         tickerData: [],
         incomeStmtdata: [],
         AIRecommendationsData: null
+      });
+    }
+
+    handleCompanyClick = (symbol, companyName) => {
+      // Set the selected company in the search box
+      const selectedCompany = {
+        label: `${companyName} (${symbol})`,
+        value: symbol
+      };
+
+      // Update state and trigger data fetching
+      this.setState({
+        multiSelectInput: [selectedCompany],
+        showIndustryGrowth: false
+      }, () => {
+        // Fetch data for the selected company
+        this.getTickerData([symbol]);
+        this.getIncomeStmtData([symbol]);
+
+        // Only call AI API for paid users
+        if (this.state.isPaidUser) {
+          this.getAIRecommendationsData([symbol]);
+        }
       });
     }
 
@@ -167,6 +195,12 @@ class HomePage extends React.Component {
 
     renderAIRecommendations() {
       console.log('AIRecommendationsData loader:', this.state.AIRecommendationsData, this.state.aiLoader)
+
+      // Show upgrade prompt for non-paid users
+      if (!this.state.isPaidUser) {
+        return <UpgradePrompt />
+      }
+
       return (
         this.state.aiLoader ? <Loader message="Your AI agent is working...." /> : <AIRecommendations AIRecommendationsData={ this.state.AIRecommendationsData }/>
       )
@@ -181,8 +215,18 @@ class HomePage extends React.Component {
     render() {
       const panes = [
         { menuItem: 'Charts', render: () => <Tab.Pane className="customTabPane">{this.renderChartsTab()}</Tab.Pane> },
-        { menuItem: 'AI Recommendation', render: () => <Tab.Pane className="customTabPane">{this.renderAIRecommendations()}</Tab.Pane> },
         { menuItem: 'Metrics', render: () => <Tab.Pane className="customTabPane">{this.renderMetrics()}</Tab.Pane> },
+        {
+          menuItem: (
+            <Menu.Item key='ai-recommendation'>
+              <div className="tab-with-badge">
+                AI Recommendation
+                <span className="crown-badge">👑</span>
+              </div>
+            </Menu.Item>
+          ),
+          render: () => <Tab.Pane className="customTabPane">{this.renderAIRecommendations()}</Tab.Pane>
+        },
       ];
       return  (
         <div className='home'> 
@@ -202,7 +246,7 @@ class HomePage extends React.Component {
               <MultiSelect setMultiSelectValues={this.handleSelectChange} multiSelectInput={this.state.multiSelectInput}/>
               <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
             </div>
-            {this.state.showIndustryGrowth && <IndustryGrowth />}
+            {this.state.showIndustryGrowth && <IndustryGrowth onCompanyClick={this.handleCompanyClick} />}
             {this.state.tickerData.length > 0 && <Tab panes={panes} />}
           </div>
           <div>

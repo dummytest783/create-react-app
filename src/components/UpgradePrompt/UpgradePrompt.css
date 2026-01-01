@@ -1,0 +1,224 @@
+.upgrade-prompt-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  padding: 20px;
+}
+
+.upgrade-prompt-card {
+  background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 100%);
+  border: 2px solid rgba(138, 132, 216, 0.3);
+  border-radius: 20px;
+  padding: 50px 40px;
+  max-width: 750px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.upgrade-prompt-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(138, 132, 216, 0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.lock-icon {
+  position: relative;
+  z-index: 1;
+  color: #8884d8;
+  margin-bottom: 24px;
+  animation: lockBounce 2s ease-in-out infinite;
+}
+
+@keyframes lockBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.upgrade-title {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #fff 0%, #e0b1ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.upgrade-subtitle {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+
+.features-list {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+  margin: 32px auto;
+  max-width: 650px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #fff;
+  margin-bottom: 18px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.checkmark {
+  font-size: 22px;
+  min-width: 28px;
+  margin-top: 2px;
+}
+
+.pricing-section {
+  position: relative;
+  z-index: 1;
+  margin: 36px 0 24px 0;
+  padding: 24px;
+  background: rgba(138, 132, 216, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(138, 132, 216, 0.3);
+}
+
+.contact-info {
+  text-align: center;
+}
+
+.contact-title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.contact-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin: 0;
+}
+
+.contact-details {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.contact-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 30px;
+  border: 1px solid rgba(138, 132, 216, 0.2);
+}
+
+.person-icon {
+  font-size: 24px;
+}
+
+.person-name {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.upgrade-button {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #8884d8 0%, #6a5acd 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 48px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(136, 132, 216, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.upgrade-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(136, 132, 216, 0.6);
+  background: linear-gradient(135deg, #9a96e8 0%, #7b6bdd 100%);
+  color: #fff;
+  text-decoration: none;
+}
+
+.upgrade-button:active {
+  transform: translateY(-1px);
+}
+
+.button-icon {
+  font-size: 20px;
+}
+
+.secure-text {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+  .upgrade-prompt-card {
+    padding: 40px 24px;
+  }
+
+  .upgrade-title {
+    font-size: 24px;
+  }
+
+  .upgrade-subtitle {
+    font-size: 14px;
+  }
+
+  .feature-item {
+    font-size: 14px;
+  }
+
+  .amount {
+    font-size: 36px;
+  }
+
+  .upgrade-button {
+    padding: 14px 36px;
+    font-size: 16px;
+  }
+}

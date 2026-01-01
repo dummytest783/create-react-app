@@ -7,22 +7,45 @@
 }
 
 .industry-growth-header {
-  color: white !important;
   text-align: center;
-  margin-bottom: 2rem !important;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 
-  .header {
-    color: white !important;
+  .header-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
   }
 
-  .sub.header {
-    color: rgba(255, 255, 255, 0.8) !important;
-    font-size: 0.95rem;
-    margin-top: 0.5rem;
-  }
-
-  i.icon {
+  .title-icon {
     color: #5AC3BF !important;
+    font-size: 2rem !important;
+    margin: 0 !important;
+  }
+
+  .header-text {
+    color: white;
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .header-subtitle {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0 2rem;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 800px;
   }
 }
 
@@ -189,7 +212,7 @@
 
 .companies-header {
   display: grid;
-  grid-template-columns: 3rem 1fr 6rem 12rem;
+  grid-template-columns: 3rem 1fr 7.5rem minmax(16rem, auto);
   gap: 1rem;
   padding: 1rem 1.5rem 0.75rem;
   font-size: 0.75rem;
@@ -202,16 +225,27 @@
 
 .company-row {
   display: grid;
-  grid-template-columns: 3rem 1fr 6rem 12rem;
+  grid-template-columns: 3rem 1fr 7.5rem minmax(16rem, auto);
   gap: 1rem;
   padding: 1rem 1.5rem;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   color: white;
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.05);
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(90, 195, 191, 0.1);
+      border-left: 3px solid #5AC3BF;
+      padding-left: calc(1.5rem - 3px);
+    }
+
+    &:focus {
+      outline: 2px solid #5AC3BF;
+      outline-offset: -2px;
+    }
   }
 
   &:last-child {
@@ -267,15 +301,18 @@
 .company-revenue {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   font-size: 0.85rem;
   color: white;
+  justify-content: flex-start;
 }
 
 .revenue-line {
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.35rem;
+  white-space: nowrap;
 }
 
 .revenue-year {
@@ -318,21 +355,77 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .industry-growth-header {
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+    gap: 0.5rem;
+
+    .header-title-row {
+      gap: 0.5rem;
+    }
+
+    .title-icon {
+      font-size: 1.5rem !important;
+    }
+
+    .header-text {
+      font-size: 1.5rem;
+    }
+
+    .header-subtitle {
+      font-size: 0.9rem;
+      padding: 0 1rem;
+    }
+  }
+
   .industries-grid {
     grid-template-columns: 1fr;
   }
 
   .industry-header {
     padding: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .industry-header-left {
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
   }
 
   .industry-header-right {
     gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .industry-rank {
+    font-size: 1.5rem;
+    min-width: 2rem;
+  }
+
+  .industry-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .industry-name {
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  .industry-score {
+    font-size: 0.75rem;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .industry-growth {
-    font-size: 1rem;
-    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+    padding: 0.35rem 0.65rem;
+    min-width: 90px;
   }
 
   .companies-header {
@@ -340,45 +433,48 @@
   }
 
   .company-row {
-    grid-template-columns: 2rem 1fr;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    row-gap: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0.75rem;
   }
 
   .company-rank {
-    grid-column: 1;
-    grid-row: 1 / 3;
+    font-size: 1rem;
+    min-width: 1.5rem;
+    flex-shrink: 0;
   }
 
   .company-info {
-    grid-column: 2;
-    grid-row: 1;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .company-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+
+  .company-symbol {
+    font-size: 0.85rem;
+  }
+
+  .company-name {
+    font-size: 0.75rem;
+    display: block;
   }
 
   .company-growth {
-    grid-column: 2;
-    grid-row: 2;
-    justify-self: start;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    min-width: 70px;
+    flex-shrink: 0;
   }
 
   .company-revenue {
-    grid-column: 1 / 3;
-    grid-row: 3;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 0.8rem;
-  }
-
-  .industry-name {
-    font-size: 1rem;
-  }
-
-  .industry-rank {
-    font-size: 1.5rem;
-    min-width: 2rem;
+    display: none;
   }
 }
 
@@ -389,9 +485,5 @@
 
   .company-name {
     font-size: 0.85rem;
-  }
-
-  .revenue-value {
-    font-size: 0.75rem;
   }
 }

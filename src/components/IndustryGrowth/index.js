@@ -3,7 +3,7 @@ import { Header, Icon, Loader } from 'semantic-ui-react';
 import api from '../../config/api.json';
 import './index.scss';
 
-const IndustryGrowth = () => {
+const IndustryGrowth = ({ onCompanyClick }) => {
   const [growthData, setGrowthData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -110,15 +110,15 @@ const IndustryGrowth = () => {
 
   return (
     <div className="industry-growth-container">
-      <Header as="h2" className="industry-growth-header">
-        <Icon name="chart line" />
-        <Header.Content>
-          Top Growing Industries & Companies
-          <Header.Subheader>
-            Discover high-growth opportunities across different sectors
-          </Header.Subheader>
-        </Header.Content>
-      </Header>
+      <div className="industry-growth-header">
+        <div className="header-title-row">
+          <Icon name="chart line" className="title-icon" />
+          <h2 className="header-text">High-Performance Stocks by Industry</h2>
+        </div>
+        <p className="header-subtitle">
+          Find profitable companies with consistent 3-year revenue growth across key sectors
+        </p>
+      </div>
 
       <div className="industries-grid">
         {growthData.industries.map((industry, index) => {
@@ -160,7 +160,14 @@ const IndustryGrowth = () => {
                   </div>
 
                   {industry.companies.map((company, compIndex) => (
-                    <div key={compIndex} className="company-row">
+                    <div
+                      key={compIndex}
+                      className="company-row clickable"
+                      onClick={() => onCompanyClick(company.symbol, company.company_name)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && onCompanyClick(company.symbol, company.company_name)}
+                    >
                       <span className="company-rank">
                         {company.rank === 1 ? '🏆' :
                          company.rank === 2 ? '🥈' :
