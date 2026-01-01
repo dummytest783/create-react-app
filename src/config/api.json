@@ -5,7 +5,7 @@
     "fmpSearchTickerApi": "/stable/search-name",
     "fmpIncomeStatementApi": "/stable/income-statement",
     "stockAgent": {
-        "local": "http://localhost:8000",
+        "local": "http://127.0.0.1:8000",
         "production": "https://stockagent.onrender.com",
         "growthResultsApi": "/growth/results"
     }

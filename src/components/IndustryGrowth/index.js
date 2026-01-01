@@ -16,9 +16,10 @@ const IndustryGrowth = ({ onCompanyClick }) => {
   const fetchGrowthData = async () => {
     try {
       setLoading(true);
-      // Use localhost for development
-      const baseUrl = api.stockAgent.local;
-      // For production, change to: api.stockAgent.production
+      // Use appropriate base URL based on environment
+      const baseUrl = process.env.NODE_ENV === 'development'
+        ? api.stockAgent.local
+        : api.stockAgent.production;
 
       const response = await fetch(`${baseUrl}${api.stockAgent.growthResultsApi}?limit_industries=5&limit_companies=5`);
 
