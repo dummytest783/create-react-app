@@ -15,6 +15,7 @@ import appkey from '../config/appkey.json'
 import api from '../config/api.json'
 import MetricsTable from '../components/MetricsTable'
 import Loader from '../components/Loader'
+import CashFlowCharts from '../components/CashFlowCharts'
 
 
 class HomePage extends React.Component {
@@ -40,11 +41,13 @@ class HomePage extends React.Component {
           inputTicker :'',
           tickerData: [],
           incomeStmtdata: [],
+          cashFlowData: [],
           multiSelectInput: [],
           AIRecommendationsData: null,
           aiLoader: false,
           showIndustryGrowth: true,
-          isPaidUser: isPaidUserParam === 'true' // Check URL param, defaults to false
+          isPaidUser: isPaidUserParam === 'true', // Check URL param, defaults to false
+          cashFlowLoaded: false
         };
     }
 
@@ -95,6 +98,35 @@ class HomePage extends React.Component {
         });
 
         this.setState({incomeStmtdata: incomeStmtDataArr})
+      });
+    }
+
+    getCashFlowData(inputArray) {
+      const apikey = appkey.fmpKey_P;
+      const requestPromises = [];
+
+      for (const ticker of inputArray) {
+        const apiUrl = `${api.fmp}/stable/cash-flow-statement?symbol=${ticker}&apikey=${apikey}&period=annual`;
+        requestPromises.push(axios.get(apiUrl));
+      }
+
+      Promise.all(requestPromises).then((values) => {
+        // Populates the cash flow data array with the ticker name and the data
+        const cashFlowDataArr = values.map(value => {
+          const data = value.data && value.data.length ? value.data : [];
+          return {
+            tickerName: data.length > 0 ? data[0].symbol : 'N/A',
+            value: data
+          };
+        });
+
+        this.setState({
+          cashFlowData: cashFlowDataArr,
+          cashFlowLoaded: true
+        });
+      }).catch((error) => {
+        console.error('Error fetching cash flow data:', error);
+        this.setState({ cashFlowLoaded: true });
       });
     }
 
@@ -149,7 +181,9 @@ class HomePage extends React.Component {
         multiSelectInput: [],
         tickerData: [],
         incomeStmtdata: [],
-        AIRecommendationsData: null
+        cashFlowData: [],
+        AIRecommendationsData: null,
+        cashFlowLoaded: false
       });
     }
 
@@ -181,21 +215,21 @@ class HomePage extends React.Component {
           <div>
             <div className={this.state.incomeStmtdata && this.state.incomeStmtdata.length ? 'show' : 'hide'}>
               <ChartSection
-                  label="Net Income Growth of Last 5 Years"
-                  dataKey="netIncome"
-                  incomeStmtData={this.state.incomeStmtdata}
-                  addPercentageGrowth={this.addPercentageGrowth}
-                />
-                    
-            </div>
-            <div className={this.state.incomeStmtdata && this.state.incomeStmtdata.length ? 'show' : 'hide'}>
-              <ChartSection
                   label="Revenue Growth of Last 5 Years"
                   dataKey="revenue"
                   incomeStmtData={this.state.incomeStmtdata}
                   addPercentageGrowth={this.addPercentageGrowth}
                 />
-                    
+
+            </div>
+            <div className={this.state.incomeStmtdata && this.state.incomeStmtdata.length ? 'show' : 'hide'}>
+              <ChartSection
+                  label="Net Income Growth of Last 5 Years"
+                  dataKey="netIncome"
+                  incomeStmtData={this.state.incomeStmtdata}
+                  addPercentageGrowth={this.addPercentageGrowth}
+                />
+
             </div>
           </div>
         )
@@ -220,15 +254,38 @@ class HomePage extends React.Component {
       );
     }
 
+    renderCashFlow() {
+      // Lazy load cash flow data only when tab is accessed
+      if (!this.state.cashFlowLoaded && this.state.multiSelectInput.length > 0) {
+        const inputArray = this.state.multiSelectInput.map(tickerObj => tickerObj.value);
+        this.getCashFlowData(inputArray);
+      }
+
+      if (!this.state.cashFlowLoaded) {
+        return <Loader message="Loading cash flow data..." />;
+      }
+
+      return (
+        <div>
+          {this.state.cashFlowData.map((cashFlowItem, index) => (
+            <div key={index} className={this.state.cashFlowData && this.state.cashFlowData.length ? 'show' : 'hide'}>
+              <CashFlowCharts cashFlowData={cashFlowItem.value} />
+            </div>
+          ))}
+        </div>
+      );
+    }
+
     render() {
       const panes = [
         { menuItem: 'Charts', render: () => <Tab.Pane className="customTabPane">{this.renderChartsTab()}</Tab.Pane> },
         { menuItem: 'Metrics', render: () => <Tab.Pane className="customTabPane">{this.renderMetrics()}</Tab.Pane> },
+        { menuItem: 'Cash Flow', render: () => <Tab.Pane className="customTabPane">{this.renderCashFlow()}</Tab.Pane> },
         {
           menuItem: (
             <Menu.Item key='ai-recommendation'>
               <div className="tab-with-badge">
-                AI Recommendation
+                AI Stock Advisor
                 <span className="crown-badge">👑</span>
               </div>
             </Menu.Item>

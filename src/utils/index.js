@@ -28,10 +28,11 @@ function debounce(func, timeout = 1000){
 }
 
 function addPercentageGrowth(chartList, numberOfYears) {
-  return chartList && chartList.slice(-numberOfYears).map((chartItem, index) => {
+  const slicedList = chartList && chartList.slice(-numberOfYears);
+  return slicedList && slicedList.map((chartItem, index) => {
       if(index) {
-        const current = parseInt(chartList[index].value);
-        const prev = parseInt(chartList[index-1].value);
+        const current = parseInt(slicedList[index].value);
+        const prev = parseInt(slicedList[index-1].value);
         const percentage = ((current - prev) / prev) * 100;
         return {...chartItem, 'percentage': `${percentage.toFixed(1)}%`}
       } else {

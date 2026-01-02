@@ -1,6 +1,55 @@
 .custom-tooltip {
-    color: #000080;
-    background-color: white;
-    padding: 5px;
-    border-radius: 4px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e0e0e0;
+    min-width: 180px;
+}
+
+.tooltip-year {
+    font-weight: 700;
+    font-size: 16px;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    text-align: center;
+    border-bottom: 2px solid #8884d8;
+    padding-bottom: 6px;
+}
+
+.tooltip-value {
+    font-size: 14px;
+    color: #34495e;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.tooltip-growth {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.tooltip-growth.positive {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.tooltip-growth.negative {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.growth-label {
+    margin-right: 8px;
+}
+
+.growth-value {
+    font-weight: 700;
+    font-size: 15px;
 }

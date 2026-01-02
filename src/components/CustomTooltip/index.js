@@ -1,19 +1,25 @@
-
 import './index.css'
 
 function CustomTooltip({ active, payload }) {
     if (active && payload && payload.length) {
-        console.log('payload ', payload[0]);
         const growthPercentage = payload[0].payload.percentage;
+        const value = payload[0].value;
+        const date = payload[0].payload.date;
+
         return (
           <div className="custom-tooltip">
-            <p>{`${payload[0].payload.date}`}</p>
-            <p>{`Value: ${payload[0].value}`}</p>
-            <p>{growthPercentage && `Growth: ${growthPercentage}`}</p>
+            <div className="tooltip-year">{date}</div>
+            <div className="tooltip-value">Value: {value?.toLocaleString()}</div>
+            {growthPercentage && (
+              <div className={`tooltip-growth ${parseFloat(growthPercentage) >= 0 ? 'positive' : 'negative'}`}>
+                <span className="growth-label">YoY Growth:</span>
+                <span className="growth-value">{growthPercentage}</span>
+              </div>
+            )}
           </div>
         );
     }
-    
+
     return null;
   }
   export default CustomTooltip;

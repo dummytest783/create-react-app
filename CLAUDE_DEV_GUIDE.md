@@ -657,7 +657,7 @@ Use existing breakpoint pattern:
 
 1. Start dev server: `npm start`
 2. Test with multiple stocks (e.g., AAPL, MSFT, GOOGL)
-3. Check all three tabs: Charts, AI Recommendations, Metrics
+3. Check all three tabs: Charts, AI Stock Advisor, Metrics
 4. Test responsive design (resize browser < 480px)
 5. Check browser console for errors
 

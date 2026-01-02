@@ -218,7 +218,12 @@
   }
 
   .upgrade-button {
-    padding: 14px 36px;
+    padding: 12px 24px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .button-icon {
     font-size: 16px;
   }
 }

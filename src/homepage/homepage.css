@@ -78,9 +78,32 @@ body {
     font-weight: bold;
 }
 
+.ui.tabular.menu {
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.ui.tabular.menu::-webkit-scrollbar {
+    height: 4px;
+}
+
+.ui.tabular.menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ui.tabular.menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
 .ui.tabular.menu .item {
     color: white;
     font-weight: bold;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* Tab with PRO Badge Styles */
@@ -112,6 +135,25 @@ body {
 }
 
 /* Responsive Design */
+@media only screen and (max-width: 768px) {
+    .ui.tabular.menu .item {
+        padding: 0.8em 0.8em;
+        font-size: 13px;
+    }
+
+    .tab-with-badge {
+        gap: 4px;
+    }
+
+    .crown-badge {
+        font-size: 14px;
+    }
+
+    body {
+        margin: 5px;
+    }
+}
+
 @media only screen and (min-width: 480px) {
     .content {
         margin: 3rem;

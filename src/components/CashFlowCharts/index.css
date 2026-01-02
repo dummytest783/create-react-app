@@ -1,0 +1,68 @@
+.cash-flow-charts-container {
+  padding: 1rem 0;
+}
+
+.cash-flow-header {
+  color: #28174e;
+  margin-bottom: 2rem !important;
+  padding: 0 1rem;
+}
+
+.cash-flow-header .sub.header {
+  color: #666;
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+
+.chart-segment {
+  background: white;
+  border: 1px solid rgba(34, 36, 38, 0.15);
+  border-radius: 0.5rem;
+  padding: 1.5rem !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.chart-segment:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chart-title {
+  color: #28174e;
+  margin-bottom: 1.5rem !important;
+  font-size: 1.3rem !important;
+}
+
+.chart-title .sub.header {
+  color: #666;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.cash-flow-empty-state {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .cash-flow-charts-container {
+    padding: 0.5rem 0;
+  }
+
+  .cash-flow-header {
+    font-size: 1.5rem !important;
+    padding: 0 0.5rem;
+  }
+
+  .chart-segment {
+    padding: 1rem !important;
+  }
+
+  .chart-title {
+    font-size: 1.1rem !important;
+  }
+}

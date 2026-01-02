@@ -6,7 +6,7 @@ const HeroDecisionCard = ({ ticker, finalDecision, overallScore, confidence }) =
     <div className="hero-card">
       <div className="hero-content">
         <div className="ticker-badge">{ticker}</div>
-        <div className="decision-label">AI Recommendation</div>
+        <div className="decision-label">AI Stock Advisor</div>
         <div className="decision-value">
           {finalDecision?.toUpperCase()}
         </div>
