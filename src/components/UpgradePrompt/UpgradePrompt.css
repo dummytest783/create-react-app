@@ -3,15 +3,14 @@
   justify-content: center;
   align-items: center;
   min-height: 500px;
-  padding: 20px;
 }
 
 .upgrade-prompt-card {
   background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 100%);
   border: 2px solid rgba(138, 132, 216, 0.3);
   border-radius: 20px;
-  padding: 50px 40px;
-  max-width: 750px;
+  padding: 50px 60px;
+  max-width: 1000px;
   width: 100%;
   text-align: center;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
@@ -74,7 +73,7 @@
   z-index: 1;
   text-align: left;
   margin: 32px auto;
-  max-width: 650px;
+  max-width: 850px;
 }
 
 .feature-item {

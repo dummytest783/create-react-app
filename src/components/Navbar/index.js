@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './navbar.css';
 
 const Navbar = ({ onLogoClick, isPaidUser }) => {
@@ -34,16 +35,11 @@ const Navbar = ({ onLogoClick, isPaidUser }) => {
             </a>
           </li>
           <li className="navbar-item">
-            <a href="#industries" className="navbar-link">
-              <span className="nav-icon">📊</span>
-              Industries
-            </a>
-          </li>
-          <li className="navbar-item">
-            <a href="#earnings" className="navbar-link">
-              <span className="nav-icon">📅</span>
-              Earnings
-            </a>
+            <Link to="/ai-stock-advisor" className="navbar-link ai-advisor-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">👑</span>
+              AI Stock Advisor
+              <span className="lock-icon">🔒</span>
+            </Link>
           </li>
           {isPaidUser && (
             <li className="navbar-item">

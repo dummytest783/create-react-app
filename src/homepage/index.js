@@ -278,9 +278,9 @@ class HomePage extends React.Component {
 
     render() {
       const panes = [
-        { menuItem: 'Charts', render: () => <Tab.Pane className="customTabPane">{this.renderChartsTab()}</Tab.Pane> },
-        { menuItem: 'Metrics', render: () => <Tab.Pane className="customTabPane">{this.renderMetrics()}</Tab.Pane> },
+        { menuItem: 'Growth', render: () => <Tab.Pane className="customTabPane">{this.renderChartsTab()}</Tab.Pane> },
         { menuItem: 'Cash Flow', render: () => <Tab.Pane className="customTabPane">{this.renderCashFlow()}</Tab.Pane> },
+        { menuItem: 'Metrics', render: () => <Tab.Pane className="customTabPane">{this.renderMetrics()}</Tab.Pane> },
         {
           menuItem: (
             <Menu.Item key='ai-recommendation'>

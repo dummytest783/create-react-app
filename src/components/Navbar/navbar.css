@@ -106,6 +106,40 @@
   transform: scale(1.2) rotate(5deg);
 }
 
+/* AI Stock Advisor Link Special Styling */
+.ai-advisor-link {
+  font-size: 14px;
+  padding: 8px 14px;
+  font-weight: 500;
+  position: relative;
+}
+
+.ai-advisor-link .nav-icon {
+  font-size: 16px;
+  animation: none;
+  filter: none;
+}
+
+.ai-advisor-link .lock-icon {
+  margin-left: 4px;
+  font-size: 12px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.ai-advisor-link:hover .lock-icon {
+  opacity: 0.9;
+}
+
+@keyframes crownPulse {
+  0%, 100% {
+    transform: scale(1) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1.15) rotate(5deg);
+  }
+}
+
 /* Premium Link Special Styling */
 .premium-link {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 165, 0, 0.1) 100%);
@@ -122,15 +156,6 @@
 .crown-icon {
   animation: crownPulse 2s ease-in-out infinite;
   filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.6));
-}
-
-@keyframes crownPulse {
-  0%, 100% {
-    transform: scale(1) rotate(-5deg);
-  }
-  50% {
-    transform: scale(1.15) rotate(5deg);
-  }
 }
 
 /* Pro Badge */
