@@ -200,6 +200,9 @@ class HomePage extends React.Component {
         multiSelectInput: [selectedCompany],
         showIndustryGrowth: false
       }, () => {
+        // Scroll to top smoothly when switching views
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         // Fetch data for the selected company
         this.getTickerData([symbol]);
         this.getIncomeStmtData([symbol]);
