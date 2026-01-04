@@ -235,6 +235,10 @@ class HomePage extends React.Component {
                 />
 
             </div>
+            <VideoSection
+              videoId="WeJOrL6cqBM"
+              title="Understanding Revenue & Profit Growth"
+            />
           </div>
         )
     }
