@@ -16,6 +16,7 @@ import api from '../config/api.json'
 import MetricsTable from '../components/MetricsTable'
 import Loader from '../components/Loader'
 import CashFlowCharts from '../components/CashFlowCharts'
+import VideoSection from '../components/VideoSection'
 
 
 class HomePage extends React.Component {
@@ -302,7 +303,15 @@ class HomePage extends React.Component {
               <MultiSelect setMultiSelectValues={this.handleSelectChange} multiSelectInput={this.state.multiSelectInput}/>
               <Button className="searchbtn" primary onClick={e => this.searchClick()}>Search</Button>
             </div>
-            {this.state.showIndustryGrowth && <IndustryGrowth onCompanyClick={this.handleCompanyClick} />}
+            {this.state.showIndustryGrowth && (
+              <>
+                <VideoSection
+                  videoId="v2uxJ3CDLGY"
+                  title="Stocklele — Smarter Investing, Made Simple"
+                />
+                <IndustryGrowth onCompanyClick={this.handleCompanyClick} />
+              </>
+            )}
             {this.state.tickerData.length > 0 && <Tab panes={panes} />}
           </div>
           <div>
