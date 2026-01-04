@@ -280,6 +280,10 @@ class HomePage extends React.Component {
               <CashFlowCharts cashFlowData={cashFlowItem.value} />
             </div>
           ))}
+          <VideoSection
+            videoId="n9WsbmX_VsU"
+            title="Why Cash Flow Matters More Than Profits"
+          />
         </div>
       );
     }
