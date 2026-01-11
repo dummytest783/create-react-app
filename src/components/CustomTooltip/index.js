@@ -1,4 +1,5 @@
 import './index.css'
+import { numberFormater } from '../../utils'
 
 function CustomTooltip({ active, payload }) {
     if (active && payload && payload.length) {
@@ -9,7 +10,7 @@ function CustomTooltip({ active, payload }) {
         return (
           <div className="custom-tooltip">
             <div className="tooltip-year">{date}</div>
-            <div className="tooltip-value">Value: {value?.toLocaleString()}</div>
+            <div className="tooltip-value">Value: {numberFormater(value)}</div>
             {growthPercentage && (
               <div className={`tooltip-growth ${parseFloat(growthPercentage) >= 0 ? 'positive' : 'negative'}`}>
                 <span className="growth-label">YoY Growth:</span>

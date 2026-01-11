@@ -1,9 +1,12 @@
 function numberFormater(num) {
-    if (num >= 1000000000) {
-      return (num / 1000000000).toFixed(1) + ' bn';
+    const absNum = Math.abs(num);
+    const sign = num < 0 ? '-' : '';
+
+    if (absNum >= 1000000000) {
+      return sign + (absNum / 1000000000).toFixed(1) + ' bn';
     }
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + ' mn';
+    if (absNum >= 1000000) {
+      return sign + (absNum / 1000000).toFixed(1) + ' mn';
     }
     return num.toString();
 }
@@ -33,7 +36,22 @@ function addPercentageGrowth(chartList, numberOfYears) {
       if(index) {
         const current = parseInt(slicedList[index].value);
         const prev = parseInt(slicedList[index-1].value);
-        const percentage = ((current - prev) / prev) * 100;
+
+        let percentage;
+
+        // Handle special cases for proper percentage calculation
+        if (prev === 0) {
+          // Avoid division by zero
+          percentage = current > 0 ? 100 : (current < 0 ? -100 : 0);
+        } else if (prev < 0) {
+          // Use absolute value of prev for any negative previous value
+          // This correctly shows improvement/decline regardless of sign
+          percentage = ((current - prev) / Math.abs(prev)) * 100;
+        } else {
+          // Standard calculation for positive previous values
+          percentage = ((current - prev) / prev) * 100;
+        }
+
         return {...chartItem, 'percentage': `${percentage.toFixed(1)}%`}
       } else {
         return chartItem;

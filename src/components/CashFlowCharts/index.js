@@ -4,7 +4,7 @@ import StockboardBarChart from '../StockboardBarChart';
 import { addPercentageGrowth } from '../../utils';
 import './index.css';
 
-const CashFlowCharts = ({ cashFlowData }) => {
+const CashFlowCharts = ({ cashFlowData, tickerName }) => {
   if (!cashFlowData || cashFlowData.length === 0) {
     return (
       <Segment placeholder textAlign="center" className="cash-flow-empty-state">
@@ -60,7 +60,7 @@ const CashFlowCharts = ({ cashFlowData }) => {
               </Header>
               <StockboardBarChart
                 data={operatingCashFlowData}
-                tickerName=""
+                tickerName={tickerName}
               />
             </Segment>
           </Grid.Column>
@@ -77,7 +77,7 @@ const CashFlowCharts = ({ cashFlowData }) => {
               </Header>
               <StockboardBarChart
                 data={freeCashFlowData}
-                tickerName=""
+                tickerName={tickerName}
               />
             </Segment>
           </Grid.Column>
@@ -94,7 +94,7 @@ const CashFlowCharts = ({ cashFlowData }) => {
               </Header>
               <StockboardBarChart
                 data={netIncomeData}
-                tickerName=""
+                tickerName={tickerName}
               />
             </Segment>
           </Grid.Column>

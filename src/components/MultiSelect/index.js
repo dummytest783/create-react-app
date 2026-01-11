@@ -5,10 +5,26 @@ import appkey from '../../config/appkey.json';
 import api from '../../config/api.json';
 import { trimSentence, debounce } from '../../utils/index';
 
+// Helper function to get enabled exchanges from regions config
+const getEnabledExchanges = () => {
+  if (!api.regions) {
+    // Fallback to old config format
+    return api.allowedExchanges || ['NASDAQ', 'NYSE'];
+  }
+
+  // Get all exchanges from enabled regions
+  return Object.values(api.regions)
+    .filter(region => region.enabled)
+    .flatMap(region => region.exchanges);
+};
+
 const getConvertedOptions = (response) => {
-  return response.data && response.data.map((obj) => {
-    return { label: `${trimSentence(obj.name)} (${obj.symbol})`, value: obj.symbol };
-  });
+  const allowedExchanges = getEnabledExchanges();
+  return response.data && response.data
+    .filter((obj) => allowedExchanges.includes(obj.exchange))
+    .map((obj) => {
+      return { label: `${trimSentence(obj.name)} (${obj.symbol})`, value: obj.symbol };
+    });
 };
 
 const multiSelectFn = (inputValue) => {
@@ -22,7 +38,9 @@ const multiSelectFn = (inputValue) => {
 
 function getApiTickerData(inputValue, resolve) {
   const apikey = appkey.fmpKey_P; // Use the FMP API key
-  const apiUrl = `${api.fmp}${api.fmpSearchTickerApi}?query=${inputValue}&apikey=${apikey}&exchange=NASDAQ&exchange=NYSE`;
+  const allowedExchanges = getEnabledExchanges();
+  const exchangeParams = allowedExchanges.map(ex => `exchange=${ex}`).join('&');
+  const apiUrl = `${api.fmp}${api.fmpSearchTickerApi}?query=${inputValue}&apikey=${apikey}&${exchangeParams}`;
   axios.get(apiUrl).then((response) => {
     const selectOptions = getConvertedOptions(response);
     resolve(selectOptions);

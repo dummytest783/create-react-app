@@ -4,6 +4,28 @@
     "fmp": "https://financialmodelingprep.com",
     "fmpSearchTickerApi": "/stable/search-name",
     "fmpIncomeStatementApi": "/stable/income-statement",
+    "regions": {
+        "US": {
+            "name": "United States",
+            "exchanges": ["NASDAQ", "NYSE"],
+            "enabled": true
+        },
+        "UK": {
+            "name": "United Kingdom",
+            "exchanges": ["LSE"],
+            "enabled": false
+        },
+        "CA": {
+            "name": "Canada",
+            "exchanges": ["TSX", "TSXV"],
+            "enabled": false
+        },
+        "EU": {
+            "name": "Europe",
+            "exchanges": ["EURONEXT", "XETRA"],
+            "enabled": false
+        }
+    },
     "stockAgent": {
         "local": "http://127.0.0.1:8000",
         "production": "https://stockagent.onrender.com",

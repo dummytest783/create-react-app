@@ -20,7 +20,7 @@ function StockboardBarChart({data, tickerName}) {
                 <div className='mobile-percentage-display'>
                     <div className="tooltip-year">{data[clickedIndex].date}</div>
                     <div className="tooltip-value">
-                        Value: {data[clickedIndex].value?.toLocaleString()}
+                        Value: {numberFormater(data[clickedIndex].value)}
                     </div>
                     {data[clickedIndex].percentage ? (
                         <div className={`tooltip-growth ${parseFloat(data[clickedIndex].percentage) >= 0 ? 'positive' : 'negative'}`}>

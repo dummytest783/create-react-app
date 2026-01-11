@@ -56,6 +56,18 @@ class HomePage extends React.Component {
       this.setState({multiSelectInput: selectedValues})
     };
 
+    resetTabData() {
+      // Centralized method to reset all lazy-loaded tab data
+      // Add new tab resets here when adding new tabs
+      return {
+        cashFlowLoaded: false,
+        cashFlowData: [],
+        // Future tabs can be added here:
+        // balanceSheetLoaded: false,
+        // balanceSheetData: [],
+      }
+    }
+
     getTickerData(inputArray) {
       const apikey = appkey.fmpKey_P;
       const requestTickerPromises = inputArray.map((ticker) => {
@@ -166,7 +178,11 @@ class HomePage extends React.Component {
     searchClick() {
       this.inputArray = this.state.multiSelectInput.map(tickerObj => tickerObj.value)
       console.log('inputArray:', this.inputArray)
-      this.setState({'inputTicker': '', showIndustryGrowth: false})
+      this.setState({
+        'inputTicker': '',
+        showIndustryGrowth: false,
+        ...this.resetTabData()  // Reset all lazy-loaded tab data
+      })
       this.getTickerData(this.inputArray)
       this.getIncomeStmtData(this.inputArray)
 
@@ -182,9 +198,8 @@ class HomePage extends React.Component {
         multiSelectInput: [],
         tickerData: [],
         incomeStmtdata: [],
-        cashFlowData: [],
         AIRecommendationsData: null,
-        cashFlowLoaded: false
+        ...this.resetTabData()  // Reset all lazy-loaded tab data
       });
     }
 
@@ -198,7 +213,8 @@ class HomePage extends React.Component {
       // Update state and trigger data fetching
       this.setState({
         multiSelectInput: [selectedCompany],
-        showIndustryGrowth: false
+        showIndustryGrowth: false,
+        ...this.resetTabData()  // Reset all lazy-loaded tab data
       }, () => {
         // Scroll to top smoothly when switching views
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -277,7 +293,7 @@ class HomePage extends React.Component {
         <div>
           {this.state.cashFlowData.map((cashFlowItem, index) => (
             <div key={index} className={this.state.cashFlowData && this.state.cashFlowData.length ? 'show' : 'hide'}>
-              <CashFlowCharts cashFlowData={cashFlowItem.value} />
+              <CashFlowCharts cashFlowData={cashFlowItem.value} tickerName={cashFlowItem.tickerName} />
             </div>
           ))}
           <VideoSection
