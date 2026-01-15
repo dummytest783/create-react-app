@@ -528,18 +528,40 @@ $transition-fast: all 0.15s ease;
     bottom: 0;
     width: 100vw;
     height: 100vh;
+    height: 100dvh; // Dynamic viewport height for mobile browsers
     max-width: none;
     border-radius: 0;
     border: none;
-    padding-top: env(safe-area-inset-top);
+    display: flex;
+    flex-direction: column;
   }
 
   .chatbot-window__header {
+    flex-shrink: 0;
+    padding: 16px 20px;
     padding-top: max(16px, env(safe-area-inset-top));
   }
 
   .chatbot-window__body {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 16px 12px;
+    min-height: 0; // Important for flex scrolling
+    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+  }
+
+  .chatbot-window__footer {
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    padding: 12px 12px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    background: rgba(26, 14, 62, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(90, 195, 191, 0.2);
+    z-index: 10;
   }
 
   .chatbot-fab {
@@ -553,7 +575,18 @@ $transition-fast: all 0.15s ease;
   }
 
   .input-bar {
-    padding: 0 4px;
+    gap: 6px;
+  }
+
+  .input-bar__field {
+    font-size: 16px; // Prevents zoom on iOS
+    padding: 14px 16px;
+  }
+
+  .input-bar__send {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
   }
 }
 
