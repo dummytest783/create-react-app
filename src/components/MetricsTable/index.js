@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Table, Popup } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowTrendUp, faSackDollar, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -6,9 +6,9 @@ import { roundToTwoDecimals } from '../../utils/index';
 import './index.scss';
 
 const MetricsTable = ({ valuationList, profitList, tickerData }) => {
-  
+
   // Function to check if the value is good
-  const isValueGood = (item, value) => {
+  const isValueGood = useCallback((item, value) => {
     const allNumbers = tickerData.map((stock) => {
       const rawValue = stock.data && parseFloat(stock.data[item.key]);
       return item.multiplier ? rawValue * item.multiplier : rawValue;
@@ -21,7 +21,7 @@ const MetricsTable = ({ valuationList, profitList, tickerData }) => {
       return parseFloat(value) < 1;
     }
     return false;
-  };
+  }, [tickerData]);
 
   // Memoize the table content to prevent unnecessary re-renders.
   const tableContent = useMemo(() => {
