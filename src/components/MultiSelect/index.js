@@ -57,6 +57,14 @@ const customStyles = {
     padding: '5px',
     boxShadow: state.isFocused ? '0 0 0 2px #007bff' : null,
   }),
+  menu: (provided) => ({
+    ...provided,
+    zIndex: 9999, // Ensures dropdown appears above all content including iframes
+  }),
+  menuPortal: (provided) => ({
+    ...provided,
+    zIndex: 9999, // For portal mode if ever enabled
+  }),
   option: (provided, state) => ({
     ...provided,
     backgroundColor: state.isFocused ? '#007bff' : null,
