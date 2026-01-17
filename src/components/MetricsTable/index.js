@@ -24,7 +24,8 @@ const MetricsTable = ({ valuationList, profitList, tickerData }) => {
   };
 
   // Memoize the table content to prevent unnecessary re-renders.
-  const tableContent = useMemo(() => (
+  const tableContent = useMemo(() => {
+    return (
     <Table.Body>
       <Table.Row fullWidth className="sectionHeader">
         <Table.Cell colSpan={tickerData.length + 1}>Valuation <FontAwesomeIcon icon={faArrowTrendUp} size={12} /></Table.Cell>
@@ -69,7 +70,8 @@ const MetricsTable = ({ valuationList, profitList, tickerData }) => {
         </Table.Row>
       ))}
     </Table.Body>
-  ), [valuationList, profitList, tickerData]);
+    );
+  }, [valuationList, profitList, tickerData, isValueGood]);
 
   return (
     <div className={`${tickerData.length ? 'show' : 'hide'} metricsTable`}>
