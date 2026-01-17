@@ -7,12 +7,6 @@ import './chatbot.scss';
 const WELCOME_MESSAGE = {
   text: `Hello! I'm your Financial Assistant. I can help you understand stock market concepts and financial metrics.
 
-Try asking me:
-• What is P/E ratio?
-• Explain return on equity (ROE)
-• How do you calculate profit margin?
-• What's the difference between revenue and profit?
-
 Remember: I provide educational information only, not investment advice.`,
   isUser: false,
   timestamp: new Date().toISOString()
