@@ -35,7 +35,7 @@ const IndustryGrowth = ({ onCompanyClick }) => {
       const earningsToDate = formatDate(futureDate);
 
       const response = await fetch(
-        `${baseUrl}${api.stockAgent.growthResultsApi}?limit_industries=4&limit_companies=5&earnings_from_date=${earningsFromDate}&earnings_to_date=${earningsToDate}`
+        `${baseUrl}${api.stockAgent.growthResultsApi}?limit_industries=6&limit_companies=5&earnings_from_date=${earningsFromDate}&earnings_to_date=${earningsToDate}`
       );
 
       if (!response.ok) {
