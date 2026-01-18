@@ -4,6 +4,7 @@ import axios from 'axios';
 import appkey from '../../config/appkey.json';
 import api from '../../config/api.json';
 import { trimSentence, debounce } from '../../utils/index';
+import analytics from '../../analytics';
 
 // Helper function to get enabled exchanges from regions config
 const getEnabledExchanges = () => {
@@ -81,6 +82,21 @@ const customStyles = {
 function MultiSelect({ setMultiSelectValues, multiSelectInput }) {
   const handleSelectChange = (selectedOptions) => {
     setMultiSelectValues(selectedOptions);
+
+    // Track stock search - compare new vs old selections
+    if (selectedOptions && selectedOptions.length > 0) {
+      const previousCount = multiSelectInput ? multiSelectInput.length : 0;
+      const newCount = selectedOptions.length;
+
+      // User added a stock
+      if (newCount > previousCount) {
+        const newStock = selectedOptions[newCount - 1];
+        const ticker = newStock.value;
+        const companyName = newStock.label;
+
+        analytics.trackStockSearch(ticker, companyName);
+      }
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
+import analytics from '../../analytics';
 
 const Navbar = ({ onLogoClick, isPaidUser }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,6 +17,12 @@ const Navbar = ({ onLogoClick, isPaidUser }) => {
       e.preventDefault();
       window.location.href = '/';
     }
+  };
+
+  const handleAIAdvisorClick = () => {
+    setIsMobileMenuOpen(false);
+    // Track AI Stock Advisor click from navbar
+    analytics.trackAIAdvisorClick([], 'navbar');
   };
 
   return (
@@ -35,7 +42,7 @@ const Navbar = ({ onLogoClick, isPaidUser }) => {
             </a>
           </li>
           <li className="navbar-item">
-            <Link to="/ai-stock-advisor" className="navbar-link ai-advisor-link" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link to="/ai-stock-advisor" className="navbar-link ai-advisor-link" onClick={handleAIAdvisorClick}>
               <span className="nav-icon">👑</span>
               AI Stock Advisor
               <span className="lock-icon">🔒</span>

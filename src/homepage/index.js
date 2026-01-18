@@ -17,6 +17,7 @@ import MetricsTable from '../components/MetricsTable'
 import Loader from '../components/Loader'
 import CashFlowCharts from '../components/CashFlowCharts'
 import VideoSection from '../components/VideoSection'
+import analytics from '../analytics'
 
 
 class HomePage extends React.Component {
@@ -304,12 +305,39 @@ class HomePage extends React.Component {
       );
     }
 
-    render() {
-      const panes = [
-        { menuItem: 'Growth', render: () => <Tab.Pane className="customTabPane">{this.renderChartsTab()}</Tab.Pane> },
-        { menuItem: 'Cash Flow', render: () => <Tab.Pane className="customTabPane">{this.renderCashFlow()}</Tab.Pane> },
-        { menuItem: 'Metrics', render: () => <Tab.Pane className="customTabPane">{this.renderMetrics()}</Tab.Pane> },
+    handleTabChange = (_e, data) => {
+      const { activeIndex } = data;
+
+      // Find which tab was clicked by checking the panes array
+      const panes = this.getPanes();
+      const clickedPane = panes[activeIndex];
+
+      // Track AI Stock Advisor tab click using the unique key instead of index
+      if (clickedPane && clickedPane.key === 'ai-advisor') {
+        const tickers = this.state.multiSelectInput.map(item => item.value);
+        analytics.trackAIAdvisorClick(tickers, 'tab');
+      }
+    }
+
+    getPanes() {
+      return [
         {
+          key: 'growth',
+          menuItem: 'Growth',
+          render: () => <Tab.Pane className="customTabPane">{this.renderChartsTab()}</Tab.Pane>
+        },
+        {
+          key: 'cashflow',
+          menuItem: 'Cash Flow',
+          render: () => <Tab.Pane className="customTabPane">{this.renderCashFlow()}</Tab.Pane>
+        },
+        {
+          key: 'metrics',
+          menuItem: 'Metrics',
+          render: () => <Tab.Pane className="customTabPane">{this.renderMetrics()}</Tab.Pane>
+        },
+        {
+          key: 'ai-advisor', // Unique identifier for AI tab
           menuItem: (
             <Menu.Item key='ai-recommendation'>
               <div className="tab-with-badge">
@@ -321,6 +349,10 @@ class HomePage extends React.Component {
           render: () => <Tab.Pane className="customTabPane">{this.renderAIRecommendations()}</Tab.Pane>
         },
       ];
+    }
+
+    render() {
+      const panes = this.getPanes();
       return  (
         <div className='home'>
           <Navbar onLogoClick={this.handleLogoClick} isPaidUser={this.state.isPaidUser} />
@@ -339,7 +371,7 @@ class HomePage extends React.Component {
                 <IndustryGrowth onCompanyClick={this.handleCompanyClick} />
               </>
             )}
-            {this.state.tickerData.length > 0 && <Tab panes={panes} />}
+            {this.state.tickerData.length > 0 && <Tab panes={panes} onTabChange={this.handleTabChange} />}
           </div>
           <div>
             <Footer />
