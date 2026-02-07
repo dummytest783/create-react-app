@@ -37,6 +37,7 @@ class HomePage extends React.Component {
 
         // Check for URL parameter to enable paid features for testing
         const urlParams = new URLSearchParams(window.location.search);
+        /* eslint-disable no-unused-vars */
         const isPaidUserParam = urlParams.get('abdullah');
 
         this.state = {
