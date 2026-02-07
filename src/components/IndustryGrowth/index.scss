@@ -240,6 +240,19 @@
       background: rgba(90, 195, 191, 0.1);
       border-left: 3px solid #5AC3BF;
       padding-left: calc(1.5rem - 3px);
+
+      .company-symbol {
+        color: #ffffff;
+        text-decoration-color: #5AC3BF;
+
+        &::after {
+          width: 100%;
+        }
+      }
+
+      .company-name {
+        color: #ffffff;
+      }
     }
 
     &:focus {
@@ -277,14 +290,30 @@
   font-weight: 700;
   font-size: 0.95rem;
   font-family: 'Courier New', monospace;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #5AC3BF;
+    transition: width 0.2s ease;
+  }
 }
 
 .company-name {
-  color: white;
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.9rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: color 0.2s ease;
 }
 
 .company-growth {
@@ -467,11 +496,33 @@
 
   .company-symbol {
     font-size: 0.85rem;
+    text-decoration-color: rgba(90, 195, 191, 0.4); // Make underline visible on mobile
+
+    &::after {
+      bottom: -1px;
+      height: 1px;
+      width: 100%; // Show full underline on mobile
+    }
   }
 
   .company-name {
     font-size: 0.75rem;
     display: block;
+    color: rgba(255, 255, 255, 0.9); // Slightly brighter on mobile
+  }
+
+  // Active state for touch devices
+  .company-row.clickable:active {
+    background: rgba(90, 195, 191, 0.15);
+    transform: scale(0.98);
+
+    .company-symbol {
+      color: #ffffff;
+    }
+
+    .company-name {
+      color: #ffffff;
+    }
   }
 
   .company-growth {
