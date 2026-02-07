@@ -48,7 +48,7 @@ class HomePage extends React.Component {
           AIRecommendationsData: null,
           aiLoader: false,
           showIndustryGrowth: true,
-          isPaidUser: isPaidUserParam === 'true', // Check URL param, defaults to false
+          isPaidUser:  true, // isPaidUserParam === 'true',
           cashFlowLoaded: false
         };
     }
