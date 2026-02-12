@@ -5,9 +5,25 @@
     color: black;
     border-left: none;
     border-right: none;
-    padding: 1rem;
+    padding: 2rem 1rem 1rem;
     position: relative;
     bottom: 0px;
+}
+
+.footer-disclaimer {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.disclaimer-title {
+    display: none;
+}
+
+.disclaimer-text {
+    font-size: 0.75rem;
+    color: #757575;
+    line-height: 1.4;
+    margin: 0;
 }
 
 .enable-anchor {

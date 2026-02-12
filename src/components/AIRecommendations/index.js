@@ -1,8 +1,5 @@
 import React from "react";
-import HeroDecisionCard from "./HeroDecisionCard";
-import ScoreDashboard from "./ScoreDashboard";
-import SummaryGrid from "./SummaryGrid";
-import DetailedAnalysis from "./DetailedAnalysis";
+import AgentNetworkImproved from "./AgentNetworkImproved";
 import "./index.css";
 
 const AIRecommendations = ({ AIRecommendationsData }) => {
@@ -37,18 +34,13 @@ const AIRecommendations = ({ AIRecommendationsData }) => {
 
   return (
     <div className="ai-recommendations-new">
-      <HeroDecisionCard
+      <AgentNetworkImproved
         ticker={stockData.ticker}
         finalDecision={stockData.final_decision}
         overallScore={stockData.overall_score}
         confidence={stockData.confidence}
+        detailedAnalysis={stockData.detailed_analysis}
       />
-
-      <ScoreDashboard detailedAnalysis={stockData.detailed_analysis} />
-
-      <SummaryGrid summary={stockData.summary} />
-
-      <DetailedAnalysis detailedAnalysis={stockData.detailed_analysis} />
     </div>
   );
 };

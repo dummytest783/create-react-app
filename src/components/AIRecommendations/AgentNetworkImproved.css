@@ -1,0 +1,677 @@
+/* ========================================
+   MOBILE-FIRST AI AGENT NETWORK DESIGN
+   Enhanced for Trust and Transparency
+   ======================================== */
+
+.agent-network-improved {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2556 50%, #1e1e3f 100%);
+  min-height: 100vh;
+}
+
+/* ========================================
+   HERO SECTION - Simplified & Professional
+   ======================================== */
+
+.network-hero-section {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.hero-subtitle {
+  font-size: 0.95rem;
+  color: #b8b8d0;
+  font-weight: 400;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* ========================================
+   METADATA SECTION
+   ======================================== */
+
+.analysis-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metadata-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+
+.metadata-label {
+  font-size: 0.7rem;
+  color: #8b8ba0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metadata-value {
+  font-size: 0.85rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ========================================
+   METHODOLOGY SECTION
+   ======================================== */
+
+.methodology-section {
+  margin: 24px 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.methodology-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.methodology-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.methodology-content {
+  padding: 0 16px 16px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.methodology-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.methodology-item h4 {
+  font-size: 0.9rem;
+  color: #8b5cf6;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.methodology-item ul,
+.methodology-item ol {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.85rem;
+  color: #b8b8d0;
+  line-height: 1.6;
+}
+
+.methodology-item li {
+  margin-bottom: 6px;
+}
+
+.methodology-item p {
+  font-size: 0.85rem;
+  color: #b8b8d0;
+  margin-bottom: 8px;
+}
+
+.methodology-disclaimer {
+  background: rgba(251, 191, 36, 0.1);
+  border-left: 3px solid #fbbf24;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #fbbf24;
+  line-height: 1.5;
+}
+
+/* ========================================
+   SCORE BREAKDOWN SUMMARY
+   ======================================== */
+
+.score-breakdown-summary {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.score-breakdown-summary h3 {
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.breakdown-item {
+  text-align: center;
+  padding: 12px;
+  background: rgba(139, 92, 246, 0.05);
+  border-radius: 8px;
+}
+
+.breakdown-label {
+  font-size: 0.75rem;
+  color: #8b8ba0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.breakdown-value {
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.breakdown-desc {
+  font-size: 0.8rem;
+  color: #b8b8d0;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ========================================
+   AGENT GRID SECTION
+   ======================================== */
+
+.agent-grid-section {
+  margin: 32px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  font-size: 0.9rem;
+  color: #b8b8d0;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.agent-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* ========================================
+   AGENT CARDS - Enhanced with Transparency
+   ======================================== */
+
+.agent-card-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.agent-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  border-left: 4px solid;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.agent-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.agent-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.agent-card-icon {
+  flex-shrink: 0;
+}
+
+.agent-ai-icon {
+  font-size: 2rem;
+}
+
+.agent-card-info {
+  flex: 1;
+}
+
+.agent-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.agent-specialization {
+  font-size: 0.75rem;
+  color: #8b8ba0;
+  margin: 0;
+}
+
+.agent-card-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.score-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* Score interpretation */
+.score-interpretation {
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-left: 3px solid #8b5cf6;
+}
+
+.interpretation-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #8b5cf6;
+  margin-bottom: 4px;
+}
+
+.interpretation-desc {
+  font-size: 0.75rem;
+  color: #b8b8d0;
+  line-height: 1.4;
+}
+
+/* Agent stance */
+.agent-stance-section {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}
+
+.stance-label {
+  color: #8b8ba0;
+  margin-right: 6px;
+}
+
+.stance-value {
+  font-weight: 600;
+}
+
+/* Key insight preview */
+.key-insight-preview {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 80px;
+  flex-grow: 1;
+}
+
+.insight-label {
+  font-size: 0.7rem;
+  color: #8b5cf6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.insight-text {
+  font-size: 0.8rem;
+  color: #d0d0e0;
+  line-height: 1.5;
+}
+
+.insight-text-placeholder {
+  font-size: 0.8rem;
+  color: #6b6b80;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* CTA Button */
+.agent-card-cta {
+  margin-top: 12px;
+}
+
+.cta-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  color: #8b5cf6;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cta-button:hover {
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.cta-arrow {
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+.cta-button:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+/* ========================================
+   MAIN AI DECISION - Moved to Bottom
+   ======================================== */
+
+.main-ai-decision {
+  margin: 24px 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 2px solid rgba(139, 92, 246, 0.3);
+}
+
+.decision-header-section {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.decision-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.decision-subtitle {
+  font-size: 0.85rem;
+  color: #b8b8d0;
+  line-height: 1.4;
+}
+
+.ai-decision-card {
+  margin-top: 12px;
+}
+
+.decision-main {
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px solid;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.decision-label {
+  font-size: 0.75rem;
+  color: #8b8ba0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.decision-value {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.decision-metrics-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.decision-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.metric-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  color: #8b8ba0;
+}
+
+.decision-context {
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.context-explanation {
+  font-size: 0.8rem;
+  color: #d0d0e0;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.divergence-notice {
+  display: block;
+  margin-top: 8px;
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+/* ========================================
+   DISCLAIMER
+   ======================================== */
+
+.analysis-disclaimer {
+  margin: 32px 0;
+  padding: 20px;
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 4px solid #ef4444;
+  border-radius: 8px;
+}
+
+.analysis-disclaimer h4 {
+  font-size: 0.9rem;
+  color: #ef4444;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.analysis-disclaimer p {
+  font-size: 0.8rem;
+  color: #fca5a5;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+
+@media (min-width: 768px) {
+  .agent-network-improved {
+    padding: 24px;
+  }
+
+  .agent-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .methodology-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .breakdown-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .metadata-row {
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - DESKTOP
+   ======================================== */
+
+@media (min-width: 1024px) {
+  .agent-network-improved {
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .agent-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .methodology-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.agent-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Stagger animation for cards */
+.agent-card:nth-child(1) { animation-delay: 0.1s; }
+.agent-card:nth-child(2) { animation-delay: 0.2s; }
+.agent-card:nth-child(3) { animation-delay: 0.3s; }
+.agent-card:nth-child(4) { animation-delay: 0.4s; }
+.agent-card:nth-child(5) { animation-delay: 0.5s; }
