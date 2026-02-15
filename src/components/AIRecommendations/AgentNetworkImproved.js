@@ -238,27 +238,27 @@ const AgentNetworkImproved = ({ ticker, finalDecision, overallScore, confidence,
   const agents = [
     {
       type: 'risk',
-      score: detailedAnalysis.risk?.risk_score || 0,
+      score: detailedAnalysis.risk?.score || 0,
       data: detailedAnalysis.risk,
     },
     {
       type: 'news',
-      score: detailedAnalysis.news?.news_score || 0,
+      score: detailedAnalysis.news?.score || 0,
       data: detailedAnalysis.news,
     },
     {
       type: 'profitability',
-      score: detailedAnalysis.profitability?.profitability_score || 0,
+      score: detailedAnalysis.profitability?.score || 0,
       data: detailedAnalysis.profitability,
     },
     {
       type: 'moat',
-      score: detailedAnalysis.moat?.moat_score || 0,
+      score: detailedAnalysis.moat?.score || 0,
       data: detailedAnalysis.moat,
     },
     {
       type: 'valuation',
-      score: detailedAnalysis.valuation?.valuation_score || 0,
+      score: detailedAnalysis.valuation?.score || 0,
       data: detailedAnalysis.valuation,
     },
   ];

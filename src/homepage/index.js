@@ -24,6 +24,11 @@ import analytics from '../analytics'
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
+
+        // Global configuration for AI API mock data
+        // Set to true to use mock data, false to use real API
+        this.USE_AI_MOCK_DATA = false;
+
         this.valuationList = [
           {key: 'priceToEarningsRatioTTM', label:'PE', better: 'lower', desc: 'Price/Earning', info: 'P/E ratio = Market Price of Stock / Earnings per Share (EPS)'},
           {key: 'priceToEarningsGrowthRatioTTM', label:'PEG', better: 'lower', desc: 'P/E Growth (less than 1 is undervalued)', info: 'PEG ratio = P/E ratio / Expected Earnings Growth Rate.'},
@@ -186,8 +191,8 @@ class HomePage extends React.Component {
         ? 'http://127.0.0.1:8000'
         : 'https://stockagent.onrender.com';
 
-      // Only use mock data in local development
-      const useMockParam = process.env.NODE_ENV === 'development' ? '&use_mock=true' : '';
+      // Use global configuration for mock data
+      const useMockParam = this.USE_AI_MOCK_DATA ? '&use_mock=true' : '';
 
       fetch(`${baseUrl}/analyze-stocks?tickers=${tickerQuery}${useMockParam}`)
         .then((response) => response.json())
