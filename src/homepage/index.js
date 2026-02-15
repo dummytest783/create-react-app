@@ -16,6 +16,7 @@ import api from '../config/api.json'
 import MetricsTable from '../components/MetricsTable'
 import Loader from '../components/Loader'
 import CashFlowCharts from '../components/CashFlowCharts'
+import FinancialStrengthCharts from '../components/FinancialStrengthCharts'
 import VideoSection from '../components/VideoSection'
 import analytics from '../analytics'
 
@@ -45,12 +46,14 @@ class HomePage extends React.Component {
           tickerData: [],
           incomeStmtdata: [],
           cashFlowData: [],
+          balanceSheetData: [],
           multiSelectInput: [],
           AIRecommendationsData: null,
           aiLoader: false,
           showIndustryGrowth: true,
           isPaidUser:  true, // isPaidUserParam === 'true',
-          cashFlowLoaded: false
+          cashFlowLoaded: false,
+          balanceSheetLoaded: false
         };
     }
 
@@ -64,9 +67,8 @@ class HomePage extends React.Component {
       return {
         cashFlowLoaded: false,
         cashFlowData: [],
-        // Future tabs can be added here:
-        // balanceSheetLoaded: false,
-        // balanceSheetData: [],
+        balanceSheetLoaded: false,
+        balanceSheetData: [],
       }
     }
 
@@ -142,6 +144,35 @@ class HomePage extends React.Component {
       }).catch((error) => {
         console.error('Error fetching cash flow data:', error);
         this.setState({ cashFlowLoaded: true });
+      });
+    }
+
+    getBalanceSheetData(inputArray) {
+      const apikey = appkey.fmpKey_P;
+      const requestPromises = [];
+
+      for (const ticker of inputArray) {
+        const apiUrl = `${api.fmp}/stable/balance-sheet-statement?symbol=${ticker}&apikey=${apikey}&period=annual`;
+        requestPromises.push(axios.get(apiUrl));
+      }
+
+      Promise.all(requestPromises).then((values) => {
+        // Populates the balance sheet data array with the ticker name and the data
+        const balanceSheetDataArr = values.map(value => {
+          const data = value.data && value.data.length ? value.data : [];
+          return {
+            tickerName: data.length > 0 ? data[0].symbol : 'N/A',
+            value: data
+          };
+        });
+
+        this.setState({
+          balanceSheetData: balanceSheetDataArr,
+          balanceSheetLoaded: true
+        });
+      }).catch((error) => {
+        console.error('Error fetching balance sheet data:', error);
+        this.setState({ balanceSheetLoaded: true });
       });
     }
 
@@ -306,6 +337,28 @@ class HomePage extends React.Component {
       );
     }
 
+    renderFinancialStrength() {
+      // Lazy load balance sheet data only when tab is accessed
+      if (!this.state.balanceSheetLoaded && this.state.multiSelectInput.length > 0) {
+        const inputArray = this.state.multiSelectInput.map(tickerObj => tickerObj.value);
+        this.getBalanceSheetData(inputArray);
+      }
+
+      if (!this.state.balanceSheetLoaded) {
+        return <Loader message="Loading balance sheet data..." />;
+      }
+
+      return (
+        <div>
+          {this.state.balanceSheetData.map((balanceSheetItem, index) => (
+            <div key={index} className={this.state.balanceSheetData && this.state.balanceSheetData.length ? 'show' : 'hide'}>
+              <FinancialStrengthCharts balanceSheetData={balanceSheetItem.value} tickerName={balanceSheetItem.tickerName} />
+            </div>
+          ))}
+        </div>
+      );
+    }
+
     handleTabChange = (_e, data) => {
       const { activeIndex } = data;
 
@@ -331,6 +384,11 @@ class HomePage extends React.Component {
           key: 'cashflow',
           menuItem: 'Cash Flow',
           render: () => <Tab.Pane className="customTabPane">{this.renderCashFlow()}</Tab.Pane>
+        },
+        {
+          key: 'financial-strength',
+          menuItem: 'Financial Strength',
+          render: () => <Tab.Pane className="customTabPane">{this.renderFinancialStrength()}</Tab.Pane>
         },
         {
           key: 'metrics',
