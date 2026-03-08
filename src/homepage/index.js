@@ -56,7 +56,7 @@ class HomePage extends React.Component {
           AIRecommendationsData: null,
           aiLoader: false,
           showIndustryGrowth: true,
-          isPaidUser:  false, // isPaidUserParam === 'true',
+          isPaidUser:  true, // isPaidUserParam === 'true',
           cashFlowLoaded: false,
           balanceSheetLoaded: false
         };
@@ -192,7 +192,7 @@ class HomePage extends React.Component {
         : 'https://stockagent.onrender.com';
 
       // Use global configuration for mock data
-      const useMockParam = this.USE_AI_MOCK_DATA ? '&use_mock=true' : '';
+      const useMockParam = this.USE_AI_MOCK_DATA ? '&use_mock=false' : '';
 
       fetch(`${baseUrl}/analyze-stocks?tickers=${tickerQuery}${useMockParam}`)
         .then((response) => response.json())
